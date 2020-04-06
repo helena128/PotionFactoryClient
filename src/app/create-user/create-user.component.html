@@ -1,0 +1,54 @@
+<div class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-primary">
+	<!-- TODO: move navbar -->
+	<div class="container" style="margin-top: 10px">
+		<a class="navbar-brand" href="#home">Home</a>
+		<a class="navbar-brand" href="#add">Add user</a>
+		<a class="navbar-brand" href="#logout">Log out</a>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 30px; width: 35%">
+	<h1 style="font-size: 32px; margin-bottom: 20px">Register user</h1>
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" placeholder="Enter Name" name="email" required>
+	</div>
+
+	<div class="row form-group justify-content-between">
+		<div class="col-sm-6">
+			<input class="form-control" type="text" placeholder="Enter Email" name="email" required>
+		</div>
+		<div style="margin-right: 12px;">
+			<input class="form-control" type="text" placeholder="Phone number" name="phone">
+		</div>
+	</div>
+
+	<div class="input-group mb-3" style="margin-top: 10px;">
+	  <div class="input-group-prepend">
+	    <label class="input-group-text" for="inputGroupSelect01">Role</label>
+	  </div>
+	  <select class="custom-select" id="inputGroupSelect01">
+	    <option value="user" selected>User</option>
+		<option value="warehouseOperator">Warehouse operator</option>
+		<option value="workshopOperator">Workshop Operator</option>
+		<option value="fairyGodmother">Fairy Godmother</option>
+		<option value="admin">Administrator</option>
+	  </select>
+	</div>
+
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" placeholder="Enter password" required>
+	</div>
+
+	<div class="row justify-content-between">
+		<div class="col-sm-6">
+			<button type="button" class="btn btn-success mr-auto">Register</button>
+		</div>
+		<div style="margin-right: 12px">
+			<button type="button" class="btn btn-danger" data-dismiss=auto>Cancel</button>
+		</div>
+	</div>
+</div>
+
+<div class="footer-copyright fixed-bottom text-center py-3">© 2020 Copyright:
+	<a href="https://freshteam.com/">FreshTeam</a>
+</div>
