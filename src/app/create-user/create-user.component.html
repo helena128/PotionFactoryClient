@@ -1,28 +1,20 @@
-<div class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-primary">
-	<!-- TODO: move navbar -->
-	<div class="container" style="margin-top: 10px">
-		<a class="navbar-brand" href="#home">Home</a>
-		<a class="navbar-brand" href="#add">Add user</a>
-		<a class="navbar-brand" href="#logout">Log out</a>
-    </div>
-</div>
-
-<div class="container" style="margin-top: 30px; width: 35%">
-	<h1 style="font-size: 32px; margin-bottom: 20px">Register user</h1>
-	<div class="input-group mb-3">
+<div class="container form-container" style="margin-top: 30px; width: 35%">
+	<h1 style="font-size: 32px; margin-bottom: 20px" *ngIf="userRole=='ADMIN'">Register user</h1>
+	<h1 style="font-size: 32px; margin-bottom: 20px" *ngIf="userRole=='USER'">Registration info</h1>
+	<div class="input-group">
 		<input type="text" class="form-control" placeholder="Enter Name" name="email" required>
 	</div>
 
-	<div class="row form-group justify-content-between">
-		<div class="col-sm-6">
+	<div class="form-group" style="display: flex; justify-content: space-between; margin-top: 10px;">
+		<div style="width: 60%">
 			<input class="form-control" type="text" placeholder="Enter Email" name="email" required>
 		</div>
-		<div style="margin-right: 12px;">
+		<div style="margin-left: 10px;">
 			<input class="form-control" type="text" placeholder="Phone number" name="phone">
 		</div>
 	</div>
 
-	<div class="input-group mb-3" style="margin-top: 10px;">
+	<div class="input-group mb-3" style="margin-top: 10px;" *ngIf="userRole=='ADMIN'">
 	  <div class="input-group-prepend">
 	    <label class="input-group-text" for="inputGroupSelect01">Role</label>
 	  </div>
@@ -36,7 +28,8 @@
 	</div>
 
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="Enter password" required>
+		<input type="text" class="form-control" placeholder="Enter password" required *ngIf="userRole=='ADMIN'">
+		<input type="password" class="form-control" placeholder="Enter password" required *ngIf="userRole!='ADMIN'">
 	</div>
 
 	<div class="row justify-content-between">
@@ -49,9 +42,9 @@
 	</div>
 
 	<!-- Warning -->
-	<div class="alert alert-warning" style="margin-top: 10px">
+ 	<!-- <div class="alert alert-warning" style="margin-top: 10px">
 		User with the specified email already exists!
-	</div>
+	</div> -->
 </div>
 
 <div class="footer-copyright fixed-bottom text-center py-3">© 2020 Copyright:
