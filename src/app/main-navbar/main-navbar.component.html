@@ -1,0 +1,21 @@
+<nav class="navbar navbar-dark bg-primary">
+  <div class = "container" style="display: flex">
+    <div style="display: flex;" *ngFor="let header of headers;">
+      <div>
+        <a class="navbar-brand">{{header}}</a>
+      </div>
+    </div>
+    <div>
+      <div class="nav-item dropdown">
+        <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown"
+           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="#">Log Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
