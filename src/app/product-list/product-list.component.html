@@ -46,7 +46,7 @@
                 {{product.mainFeatures.join(', ')}}
               </div>
               <div>
-                <button class="btn btn-warning">View</button>
+                <button class="btn btn-warning" [routerLink]="['/products', product.id]">View</button>
               </div>
             </div>
           </td>
