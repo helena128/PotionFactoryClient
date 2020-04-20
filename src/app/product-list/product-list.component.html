@@ -1,0 +1,22 @@
+<div class="container">
+  <div style="font-size: 32px">Products</div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Main features</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let product in productList; let idx = index">
+      <tr>
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.mainFeatures.toString()}}</td>
+        <td>
+          <button class="btn btn-success">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
