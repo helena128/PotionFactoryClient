@@ -1,0 +1,20 @@
+<div class="container content">
+  <div class="header">Search literature</div>
+  <div style="display: flex;">
+    <div style="width: 50%">
+      <input type="text" class="form-control" placeholder="Enter your search here">
+    </div>
+    <div>
+      <button class="btn btn-warning" style="margin-left: 10px">Search</button>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" style="margin-top: 10px;" *ngFor="let book of books">
+      <h5 style="margin: 20px 0 0 20px" class="card-title">{{book.bookName}}</h5>
+      <div class="card-body">{{book.bookPreviewText}}</div>
+    </div>
+    <div style="margin-top: 10px">
+      <button class="btn btn-info">View more</button>
+    </div>
+  </div>
+</div>

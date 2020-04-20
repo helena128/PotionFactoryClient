@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class MainNavbarComponent implements OnInit {
 
-  public userRole: UserRole = UserRole.User;
+  public userRole: UserRole = UserRole.FairyGodmother;
 
   public headers: Array<Header>;
 
@@ -56,7 +56,7 @@ export class MainNavbarComponent implements OnInit {
         this.headers.push(
           {
             name: "Literature",
-            link: "literature"
+            link: "books"
           });
         break;
       case UserRole.WareHouseOperator:
