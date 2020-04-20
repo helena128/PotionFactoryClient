@@ -1,22 +1,57 @@
 <div class="container">
-  <div style="font-size: 32px">Products</div>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Main features</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let product in productList; let idx = index">
-      <tr>
-        <td>{{product.id}}</td>
-        <td>{{product.name}}</td>
-        <td>{{product.mainFeatures.toString()}}</td>
-        <td>
-          <button class="btn btn-success">View</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div style="font-size: 32px; margin: 30px 0">Products</div>
+
+  <!--- Number of entries and search -->
+  <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; margin-bottom: 20px">
+      <!-- Pagination -->
+      <div style="margin-right: 10px; margin-top: 8px">Number of entries:</div>
+      <div>
+        <select class="custom-select">
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+    </div>
+    <!-- Search -->
+    <div style="display: flex">
+      <div style="min-width: 300px; margin-right: 10px">
+        <input type="text" class="form-control" placeholder="Search by feature or potion name">
+      </div>
+      <div>
+        <button class="btn btn-info">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- table -->
+  <div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 15%">ID</th>
+          <th scope="col" style="width: 35%">Product Name</th>
+          <th scope="col">Main features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productList">
+          <td>{{product.id}}</td>
+          <td>{{product.productName}}</td>
+          <td>
+            <div style="display: flex; justify-content: space-between">
+              <div>
+                {{product.mainFeatures.join(', ')}}
+              </div>
+              <div>
+                <button class="btn btn-warning">View</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
