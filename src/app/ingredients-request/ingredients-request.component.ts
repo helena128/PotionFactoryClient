@@ -31,7 +31,7 @@ export class IngredientsRequestComponent implements OnInit {
       },
       {
         name: 'Ingredient Two',
-        amount: 1
+        amount: 3
       },
       {
         name: 'Ingredient Three',
