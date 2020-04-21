@@ -10,6 +10,7 @@ import {ProductListComponent} from './product-list/product-list.component';
 import {ProductDetailsComponent} from './product-details/product-details.component';
 import { SearchBooksComponent } from './search-books/search-books.component';
 import { IngredientsRequestComponent } from './ingredients-request/ingredients-request.component';
+import { ManufactureReportComponent } from './manufacture-report/manufacture-report.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { IngredientsRequestComponent } from './ingredients-request/ingredients-r
     ProductListComponent,
     ProductDetailsComponent,
     SearchBooksComponent,
-    IngredientsRequestComponent
+    IngredientsRequestComponent,
+    ManufactureReportComponent
   ],
   imports: [
     BrowserModule,

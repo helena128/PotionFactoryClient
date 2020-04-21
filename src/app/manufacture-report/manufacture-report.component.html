@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="header">Request ingredients</div>
-  <div *ngFor="let req of ingredientRequestList; let last = last" style="display: flex; align-items: center; justify-content: center">
+  <div class="header">Manufacture report</div>
+  <div *ngFor="let item of manufacturedItemList; let last = last" style="display: flex; align-items: center; justify-content: center">
     <div class="row-elem">
-      <input type="search" class="form-control" [value]="req.name" [disabled]="!last">
+      <input type="search" class="form-control" [value]="item.potionName" [disabled]="!last">
     </div>
     <div class="row-elem">
       <select class="custom-select" [disabled]="!last">
-        <option *ngFor="let amount of amountValues; let first = first" [selected]="req.amount - 1 == amount">{{amount}}</option>
+        <option *ngFor="let amount of amountValues; let first = first" [selected]="item.amount - 1 == amount">{{amount + 1}}</option>
       </select>
     </div>
     <div class="row-elem">
