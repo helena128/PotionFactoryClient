@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="header">Request ingredients</div>
+  <div *ngFor="let req of ingredientRequestList; let last = last" style="display: flex; align-items: center; justify-content: center">
+    <div class="row-elem">
+      <input type="search" class="form-control" [value]="req.name" [disabled]="!last">
+    </div>
+    <div class="row-elem">
+      <select class="custom-select" [disabled]="!last">
+        <option *ngFor="let amount of amountValues; let first = first">{{amount}}</option>
+      </select>
+    </div>
+    <div class="row-elem">
+      <button *ngIf="last" class="btn btn-info"><i class="fa fa-plus"></i> </button>
+      <button *ngIf="!last" class="btn btn-info"><i class="fa fa-minus"></i> </button>
+    </div>
+  </div>
+  <div style="margin-top: 10px" class="submit-btn">
+    <button class="btn btn-warning">Send request</button>
+  </div>
+</div>
