@@ -10,11 +10,16 @@
   </div>
   <div class="card-wrapper">
     <div class="card" style="margin-top: 10px;" *ngFor="let book of books">
-      <h5 style="margin: 20px 0 0 20px" class="card-title">{{book.bookName}}</h5>
+      <h5 style="margin: 20px 0 0 20px; " class="card-title">
+        <a style="cursor: pointer;" class="text-primary">{{book.bookName}}</a>
+      </h5>
       <div class="card-body">{{book.bookPreviewText}}</div>
     </div>
     <div style="margin-top: 10px">
       <button class="btn btn-info">View more</button>
     </div>
   </div>
+<!--  <div style="margin-top: 30px;">
+    No content was found. Please, rephrase
+  </div>-->
 </div>

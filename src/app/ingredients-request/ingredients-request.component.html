@@ -5,13 +5,16 @@
       <input type="search" class="form-control" [value]="req.name" [disabled]="!last">
     </div>
     <div class="row-elem">
-      <select class="custom-select" [disabled]="!last">
+      <select class="custom-select">
         <option *ngFor="let amount of amountValues; let first = first" [selected]="req.amount - 1 == amount">{{amount}}</option>
       </select>
     </div>
     <div class="row-elem">
       <button *ngIf="last" class="btn btn-info"><i class="fa fa-plus"></i> </button>
       <button *ngIf="!last" class="btn btn-info"><i class="fa fa-minus"></i> </button>
+    </div>
+    <div class="row-elem" style="width: 20px">
+      <button (click)="redirectToDetailsPage(1)" *ngIf="!last" class="btn btn-secondary"><i class="fa fa-info"></i> </button>
     </div>
   </div>
   <div style="margin-top: 10px" class="submit-btn">
