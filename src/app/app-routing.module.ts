@@ -6,6 +6,8 @@ import {ProductDetailsComponent} from "./product-details/product-details.compone
 import {SearchBooksComponent} from "./search-books/search-books.component";
 import {IngredientsRequestComponent} from "./ingredients-request/ingredients-request.component";
 import {ManufactureReportComponent} from "./manufacture-report/manufacture-report.component";
+import {IngredientDetailsComponent} from "./ingredient-details/ingredient-details.component";
+import {BookContentComponent} from "./book-content/book-content.component";
 
 
 const routes: Routes = [
@@ -23,7 +25,13 @@ const routes: Routes = [
         path: 'books', component: SearchBooksComponent
       },
       {
+        path: 'books/:id', component: BookContentComponent
+      },
+      {
         path: 'ingredients', component: IngredientsRequestComponent
+      },
+      {
+        path: 'ingredients/:id', component: IngredientDetailsComponent
       },
       {
         path: 'report', component: ManufactureReportComponent

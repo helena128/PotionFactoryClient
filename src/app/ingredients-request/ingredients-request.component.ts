@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IngredientRequest} from "../model/ingredient-request";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-ingredients-request',
@@ -11,11 +12,17 @@ export class IngredientsRequestComponent implements OnInit {
   public ingredientRequestList: Array<IngredientRequest>;
   public amountValues: Array<number>;
 
-  constructor() { }
+  // UI: fetch all ingredients, select all from fetched ingredients, limit, add info buttons
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.initRequests();
     this.initAmountValues();
+  }
+
+  public redirectToDetailsPage(id: number) {
+    this.router.navigate(['/main/ingredients/:id', id]);
   }
 
   private initAmountValues(): void {

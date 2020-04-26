@@ -11,6 +11,9 @@ import {ProductDetailsComponent} from './product-details/product-details.compone
 import { SearchBooksComponent } from './search-books/search-books.component';
 import { IngredientsRequestComponent } from './ingredients-request/ingredients-request.component';
 import { ManufactureReportComponent } from './manufacture-report/manufacture-report.component';
+import { CommonDetailsComponent } from './common-details/common-details.component';
+import { IngredientDetailsComponent } from './ingredient-details/ingredient-details.component';
+import { BookContentComponent } from './book-content/book-content.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { ManufactureReportComponent } from './manufacture-report/manufacture-rep
     ProductDetailsComponent,
     SearchBooksComponent,
     IngredientsRequestComponent,
-    ManufactureReportComponent
+    ManufactureReportComponent,
+    CommonDetailsComponent,
+    IngredientDetailsComponent,
+    BookContentComponent
   ],
   imports: [
     BrowserModule,

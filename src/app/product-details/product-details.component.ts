@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserRole} from "../model/user-role";
 
 @Component({
   selector: 'app-product-details',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  public userRole: UserRole = UserRole.WorkshopOperator;
   public amountOptions: Array<number>;
 
   constructor() { }
