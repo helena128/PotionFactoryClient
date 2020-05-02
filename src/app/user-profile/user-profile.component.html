@@ -1,0 +1,54 @@
+<div class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-primary">
+	<!-- TODO: move navbar -->
+	<div class="container" style="margin-top: 10px">
+		<a class="navbar-brand" href="#home">Home</a>
+		<a class="navbar-brand" href="#add">Orders</a>
+		<a class="navbar-brand" href="#logout">Log out</a>
+    </div>
+</div>
+
+<div class="container form-container" *ngIf="user | async as u">
+	<div style="display: flex">
+	  <h1 style="font-size: 32px; margin-top: 20px; margin-bottom: 10px">
+      {{u.name}}
+    </h1>
+	</div>
+	<a href="mailto:john.doe@gmail.com">{{u.email}}</a>
+
+	<div class="form-group d-flex justify-content-between" style="margin-top: 20px">
+		<label for="phone" style="width: 25%">Phone number</label>
+		<input type="phone"
+           id="phone" class="form-control is-disabled"
+           style="width:60%; background-color: #FAFAD2;"
+           value="{{u.phone}}">
+	</div>
+
+	<div class="form-group d-flex justify-content-between" style="margin-top: 20px">
+		<label for="address" style="width: 25%">Address</label>
+		<input type="text"
+           id="address" class="form-control is-disabled"
+           style="width:60%; background-color: #FAFAD2;"
+           value="{{u.address}}">
+	</div>
+
+	<!-- Buttons -->
+	<div class="row justify-content-between">
+		<div class="col-sm-6">
+			<button type="button" class="btn btn-success mr-auto">Save</button>
+		</div>
+		<div style="margin-right: 12px">
+			<button type="button" class="btn btn-danger" data-dismiss=auto>Cancel</button>
+		</div>
+	</div>
+
+	<!-- Warning -->
+	<div class="alert alert-warning" style="margin-top: 10px">
+		Warning about some incorrect input
+	</div>
+</div>
+
+<div></div>
+
+<div class="footer-copyright fixed-bottom text-center py-3">© 2020 Copyright:
+	<a href="https://freshteam.com/">FreshTeam</a>
+</div>
