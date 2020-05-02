@@ -15,6 +15,12 @@ import { CommonDetailsComponent } from './common-details/common-details.componen
 import { IngredientDetailsComponent } from './ingredient-details/ingredient-details.component';
 import { BookContentComponent } from './book-content/book-content.component';
 
+import { CreateUserComponent } from './create-user/create-user.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +38,13 @@ import { BookContentComponent } from './book-content/book-content.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GraphQLModule,
+    HttpClientModule
   ],
+  // exports: [
+  //   GraphQLModule
+  // ],
   providers: [],
   bootstrap: [AppComponent]
 })
