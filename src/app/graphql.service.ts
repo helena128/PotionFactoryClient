@@ -38,4 +38,17 @@ export class GraphqlService {
       `
     }).valueChanges.pipe(map(r => r.data['allProducts']));
   }
+
+  getProductDetails(id: number): Observable<api.Query['product']> {
+    return this.apollo.watchQuery<api.Query['product']>({
+      query: gql`
+      query GetProductDetails($id: Int!) {
+        product(id: $id) {
+          id name description
+        }
+      }
+      `,
+      variables: {id: id}
+    }).valueChanges.pipe(map(r => r.data['product']))
+  }
 }

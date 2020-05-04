@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserRole} from "../model/user-role";
+import {Product} from "../api-types";
+import {GraphqlService} from "../graphql.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-details',
@@ -8,13 +11,16 @@ import {UserRole} from "../model/user-role";
 })
 export class ProductDetailsComponent implements OnInit {
 
-  public userRole: UserRole = UserRole.WorkshopOperator;
+  public userRole: UserRole = UserRole.User; // TODO: change
   public amountOptions: Array<number>;
+  public product: Product;
+  private id: number;
 
-  constructor() { }
+  constructor(private service: GraphqlService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.initAmountArray();
+    this.service.getProductDetails(0).subscribe((data) => this.product = data);
   }
 
   private initAmountArray(): void {
