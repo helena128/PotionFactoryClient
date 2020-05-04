@@ -28,6 +28,14 @@ export class GraphqlService {
               }
             }`,
           variables: {string: string, limit: limit, lookaround: lookaround}})
-        .valueChanges.pipe(map(r => r.data['searchKnowledge']))
+        .valueChanges.pipe(map(r => r.data['searchKnowledge']));
+  }
+
+  searchProducts(limit: number = 10): Observable<api.Query['allProducts']> {
+    return this.apollo.watchQuery<api.Query['allProducts']>( {
+      query: gql`
+        { allProducts {id name description} }
+      `
+    }).valueChanges.pipe(map(r => r.data['allProducts']));
   }
 }
