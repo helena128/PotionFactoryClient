@@ -9,7 +9,7 @@ import {Details} from "../model/details";
 export class CommonDetailsComponent implements OnInit {
 
   @Input()
-  public details: Details;
+  public details: any;
 
   constructor() { }
 
