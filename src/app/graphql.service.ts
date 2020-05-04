@@ -64,6 +64,21 @@ export class GraphqlService {
     }).valueChanges.pipe(map(r => r.data['product']))
   }
 
+  getIngredientById(id: number): Observable<api.Query['ingredient']> {
+    return this.apollo.watchQuery<api.Query['ingredient']>({
+      query: gql`
+        query GetIngredientById($id: Int!) {
+          ingredient(id: $id) {
+            id
+            name
+            description
+          }
+        }
+      `,
+      variables: { id: id }
+    }).valueChanges.pipe(map(r => r.data['ingredient']));
+  }
+
   createOrderRequest(order: MutationCreateOrderArgs): any {
     return this.apollo.mutate<api.Mutation['createOrder']>({
       mutation: gql`

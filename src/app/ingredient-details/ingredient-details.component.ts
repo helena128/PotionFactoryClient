@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Ingredient} from "../model/ingredient";
+import {GraphqlService} from "../graphql.service";
+import {ActivatedRoute} from "@angular/router";
+import {Ingredient} from "../api-types";
 
 @Component({
   selector: 'app-ingredient-details',
@@ -8,22 +10,14 @@ import {Ingredient} from "../model/ingredient";
 })
 export class IngredientDetailsComponent implements OnInit {
 
-  public ingredient: Ingredient = new Ingredient();
+  private id: number;
+  public ingredient: Ingredient;
 
-  constructor() { }
+  constructor(private apiService: GraphqlService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.initIngredient();
-  }
-
-  private initIngredient(): void {
-    this.ingredient = new Ingredient();
-    this.ingredient.name = "Ingredient One";
-    this.ingredient.id = 1;
-    this.ingredient.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et\n" +
-      "      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea\n" +
-      "      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\n" +
-      "      pariatur.";
+    this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    this.apiService.getIngredientById(this.id).subscribe((data) => this.ingredient = data)
   }
 
 }
