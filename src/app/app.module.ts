@@ -17,6 +17,7 @@ import { BookContentComponent } from './book-content/book-content.component';
 
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
@@ -38,6 +39,9 @@ import { NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbTypeaheadModule
   ],

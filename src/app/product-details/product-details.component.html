@@ -11,14 +11,14 @@
     <div class="card-body">
       <div style="display: flex">
         <div style="margin-right: 10px; margin-top: 8px">Amount:</div>
-        <div>
-          <select class="custom-select">
-            <option *ngFor="let option of amountOptions">{{option + 1}}</option>
+        <form [formGroup]="countForm">
+          <select formControlName="countControl" class="custom-select">
+            <option [value]="amount" *ngFor="let amount of amountOptions">{{amount}}</option>
           </select>
-        </div>
+        </form>
       </div>
       <div style="margin-top: 10px">
-        <button class="btn btn-warning">Create Order</button>
+        <button class="btn btn-warning" (click)="createRequest()">Create Order</button>
       </div>
     </div>
   </div>
