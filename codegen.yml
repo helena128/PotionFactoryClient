@@ -1,0 +1,11 @@
+overwrite: true
+schema: ../target/schema.graphql
+
+generates:
+  ./src/app/api-types.ts:
+    - add: "/*\n
+           * THIS FILE WAS GENERATED WITH sbt reloadSchema.\n
+           * Do not change it directly\n
+           */\n"
+    - typescript
+    - typescript-operations
