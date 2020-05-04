@@ -39,11 +39,11 @@
       <tbody>
         <tr *ngFor="let product of productList">
           <td>{{product.id}}</td>
-          <td>{{product.productName}}</td>
+          <td>{{product.name}}</td>
           <td>
             <div style="display: flex; justify-content: space-between">
               <div>
-                {{product.mainFeatures.join(', ')}}
+                TBD
               </div>
               <div>
                 <button class="btn btn-warning" [routerLink]="['/products', product.id]">View</button>

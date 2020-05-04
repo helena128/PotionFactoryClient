@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../model/product";
 import {ActivatedRoute, Router} from "@angular/router";
+import {GraphqlService} from "../graphql.service";
+import {Observable} from "rxjs";
+import {Product, Query} from "../api-types";
 
 @Component({
   selector: 'app-product-list',
@@ -9,35 +11,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ProductListComponent implements OnInit {
 
-  public productList: Array<Product>;
+  productList: Product[];
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private service: GraphqlService) { }
 
   ngOnInit(): void {
-    this.initSampleProducts();
-  }
-
-  private initSampleProducts(): void {
-    this.productList = new Array<Product>();
-    this.productList.push(
-      {
-        id: 1,
-        productName: "Product 1",
-        mainFeatures: ["FeatureOne", "FeatureTwo"],
-        description: null
-      } as Product,
-      {
-        id: 2,
-        productName: "Product 2",
-        mainFeatures: ["FeatureOne", "FeatureThree"],
-        description: null
-      } as Product,
-      {
-        id: 3,
-        productName: "Product 3",
-        mainFeatures: ["FeatureThree", "FeatureFour"],
-        description: null
-      } as Product
-    );
+    this.service.searchProducts(10).subscribe((data) => this.productList = data);
+    console.log(this.productList);
   }
 }
