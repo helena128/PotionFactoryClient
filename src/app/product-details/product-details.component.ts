@@ -20,7 +20,8 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initAmountArray();
-    this.service.getProductDetails(0).subscribe((data) => this.product = data);
+    this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    this.service.getProductDetails(this.id).subscribe((data) => this.product = data);
   }
 
   private initAmountArray(): void {
