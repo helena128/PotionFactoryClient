@@ -7,6 +7,14 @@ import gql from 'graphql-tag';
 import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {MutationCreateOrderArgs, OrderArg} from "./api-types";
+import {
+  CREATE_ORDER_REQUEST,
+  GET_ALL_INGREDIENTS,
+  GET_ALL_PRODUCTS,
+  GET_INGREDIENT_BY_ID,
+  GET_PRODUCT_DETAILS,
+  SEARCH_BOOK
+} from "./graphql-constants";
 
 
 @Injectable({
@@ -18,12 +26,7 @@ export class GraphqlService {
   getAllIngredients(): Observable<api.Query['allIngredients']> {
     return this.apollo
       .watchQuery<api.Query['allIngredients']>({
-        query: gql`{
-          allIngredients {
-            id
-            name
-          }
-        }`})
+        query: GET_ALL_INGREDIENTS})
       .valueChanges.pipe(map(r => r.data['allIngredients']))
   }
   // createRequest()
@@ -33,21 +36,14 @@ export class GraphqlService {
   {
     return this.apollo
         .watchQuery<api.Query['searchKnowledge']>({
-          query: gql`
-            query SearchKnowledge($string: String!, $limit: Int!, $lookaround: Int!) {
-              searchKnowledge(string: $string, limit: $limit, lookaround: $lookaround) {
-                name content
-              }
-            }`,
+          query: SEARCH_BOOK,
           variables: {string: string, limit: limit, lookaround: lookaround}})
         .valueChanges.pipe(map(r => r.data['searchKnowledge']));
   }
 
   searchProducts(limit: number = 10): Observable<api.Query['allProducts']> {
     return this.apollo.watchQuery<api.Query['allProducts']>( {
-      query: gql`
-        { allProducts {id name description} }
-      `
+      query: GET_ALL_PRODUCTS
     }).valueChanges.pipe(map(r => r.data['allProducts']));
   }
 
@@ -66,15 +62,7 @@ export class GraphqlService {
 
   getIngredientById(id: number): Observable<api.Query['ingredient']> {
     return this.apollo.watchQuery<api.Query['ingredient']>({
-      query: gql`
-        query GetIngredientById($id: Int!) {
-          ingredient(id: $id) {
-            id
-            name
-            description
-          }
-        }
-      `,
+      query: GET_INGREDIENT_BY_ID,
       variables: { id: id }
     }).valueChanges.pipe(map(r => r.data['ingredient']));
   }
