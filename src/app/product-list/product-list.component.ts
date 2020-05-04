@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {GraphqlService} from "../graphql.service";
-import {Observable} from "rxjs";
-import {Product, Query} from "../api-types";
+import {Product} from "../api-types";
 
 @Component({
   selector: 'app-product-list',
@@ -17,6 +16,5 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.searchProducts(10).subscribe((data) => this.productList = data);
-    console.log(this.productList);
   }
 }
