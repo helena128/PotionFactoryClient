@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, Query} from '../api-types'
+import {User, Query} from '../api-types'
 
 // TODO: Why cant we import this from AppolloModule/GraphQLModule?
 import { Apollo } from 'apollo-angular';

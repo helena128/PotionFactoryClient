@@ -2,24 +2,25 @@
   <div class="header">Search literature</div>
   <div style="display: flex;">
     <div style="width: 50%">
-      <input type="text" class="form-control" placeholder="Enter your search here">
+      <input #string type="text" class="form-control" placeholder="Enter your search here"
+             (keyup.enter)="search(string.value)">
     </div>
     <div>
-      <button class="btn btn-warning" style="margin-left: 10px">Search</button>
+      <button class="btn btn-warning" style="margin-left: 10px" (click)="search(string.value)">Search</button>
     </div>
   </div>
   <div class="card-wrapper">
-    <div class="card" style="margin-top: 10px;" *ngFor="let book of books">
+    <div class="card" style="margin-top: 10px;" *ngFor="let book of results | async">
       <h5 style="margin: 20px 0 0 20px; " class="card-title">
-        <a style="cursor: pointer;" class="text-primary">{{book.bookName}}</a>
+        <a style="cursor: pointer;" class="text-primary">{{book.name}}</a>
       </h5>
-      <div class="card-body">{{book.bookPreviewText}}</div>
+      <div class="card-body">{{book.content}}</div>
     </div>
     <div style="margin-top: 10px">
       <button class="btn btn-info">View more</button>
     </div>
   </div>
-<!--  <div style="margin-top: 30px;">
+  <div style="margin-top: 30px;" *ngIf="(results | async).length == 0">
     No content was found. Please, rephrase
-  </div>-->
+  </div>
 </div>
