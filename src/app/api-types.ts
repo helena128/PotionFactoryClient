@@ -68,6 +68,7 @@ export type Mutation = {
 /** Schema Mutations */
 export type MutationCreateOrderArgs = {
   product: Scalars['Int'];
+  count: Scalars['Int'];
   orderedBy: Scalars['String'];
 };
 

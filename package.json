@@ -34,6 +34,7 @@
     "font-awesome": "^4.7.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.0",
+    "graphql-type-json": "^0.3.1",
     "jquery": "^3.5.0",
     "nan": "^2.14.1",
     "popper.js": "^1.16.1",
