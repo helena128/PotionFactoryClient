@@ -14,6 +14,17 @@ import { map } from 'rxjs/operators';
 export class GraphqlService {
   constructor(private apollo: Apollo) { }
 
+  getAllIngredients(): Observable<api.Query['allIngredients']> {
+    return this.apollo
+      .watchQuery<api.Query['allIngredients']>({
+        query: gql`{
+          allIngredients {
+            id
+            name
+          }
+        }`})
+      .valueChanges.pipe(map(r => r.data['allIngredients']))
+  }
   // createRequest()
 
   searchBooks(string: String, limit: number = 3, lookaround: number = 50):

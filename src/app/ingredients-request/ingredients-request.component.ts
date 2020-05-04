@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {IngredientRequest} from "../model/ingredient-request";
 import {Router} from "@angular/router";
+import {GraphqlService} from "../graphql.service";
+import {Observable} from "rxjs";
+import {Ingredient} from "../api-types";
+import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
+import {by, element} from "protractor";
 
 @Component({
   selector: 'app-ingredients-request',
@@ -8,43 +13,37 @@ import {Router} from "@angular/router";
   styleUrls: ['./ingredients-request.component.scss']
 })
 export class IngredientsRequestComponent implements OnInit {
+  ingredients: Ingredient[] = []
+  lastComplete: Ingredient[] = []
 
-  public ingredientRequestList: Array<IngredientRequest>;
-  public amountValues: Array<number>;
+  selected: Number[] = []
+  public amountValues: Array<number> = Array.from(Array(10).keys());
 
-  // UI: fetch all ingredients, select all from fetched ingredients, limit, add info buttons
-
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
-    this.initRequests();
-    this.initAmountValues();
+  constructor(private api: GraphqlService) {}
+  ngOnInit() {
+      this.api.getAllIngredients()
+        .subscribe(data => this.ingredients = data)
   }
 
-  public redirectToDetailsPage(id: number) {
-    this.router.navigate(['/main/ingredients/:id', id]);
-  }
+  search = (text: Observable<string>) =>
+    text.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => {
+        let result =
+          term.length < 2 ? []:
+            this.ingredients
+              .filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
+              .slice(0, 10)
 
-  private initAmountValues(): void {
-    this.amountValues = Array.from(Array(10).keys());
-  }
-
-  private initRequests(): void {
-    this.ingredientRequestList = new Array<IngredientRequest>();
-    this.ingredientRequestList.push(
-      {
-        name: 'Ingredient One',
-        amount: 2
-      },
-      {
-        name: 'Ingredient Two',
-        amount: 3
-      },
-      {
-        name: 'Ingredient Three',
-        amount: 4
-      }
+        this.lastComplete = result
+        return result.map(v => v.name)
+      })
     )
-  }
 
+  validateInput(s: String) {
+    let l = this.lastComplete.filter(v => v.name == s)
+    if (l.length != 1) alert("Eblan")
+    else console.log(l[0])
+  }
 }
