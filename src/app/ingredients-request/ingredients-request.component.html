@@ -2,21 +2,19 @@
   <div class="header">Request ingredients</div>
   <div *ngFor="let ingr of ingredientList; let last = last; let index = index" style="display: flex; align-items: center; justify-content: center">
     <div class="row-elem">
-      <input type="search" #name class="form-control" [ngbTypeahead]="search" (focusout)="validateInput(name.value)" *ngIf="last"/>
       <input type="search" [value]="ingr.name" class="form-control" *ngIf="!last" disabled/>
+      <input type="search" #name class="form-control" [ngbTypeahead]="search" (focusout)="validateInput(name.value)" *ngIf="last"/>
     </div>
     <div class="row-elem">
-
       <form [formGroup]="countForm">
-        <select formControlName="countControl" class="custom-select">
+        <select formControlName="countControl" class="custom-select" (change)="changeCount(index, $event.target.value)">
           <option [value]="amount" *ngFor="let amount of amountOptions">{{amount}}</option>
         </select>
       </form>
-
     </div>
 
     <div class="row-elem">
-      <button *ngIf="last" class="btn btn-info" (click)="add()"><i class="fa fa-plus" ></i> </button>
+      <button *ngIf="last" class="btn btn-info" (click)="add()" [disabled]="!correctInput"><i class="fa fa-plus"></i> </button>
       <button *ngIf="!last" class="btn btn-info" (click)="remove(index)"><i class="fa fa-minus"></i> </button>
     </div>
 
@@ -27,6 +25,6 @@
     </div>
   </div>
   <div style="margin-top: 10px;" class="submit-btn">
-    <button class="btn btn-warning" (click)="request()">Send request</button>
+    <button class="btn btn-warning" (click)="request()" [disabled]="ingredientList.length <= 1">Send request</button>
   </div>
 </div>
