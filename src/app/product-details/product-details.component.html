@@ -5,6 +5,9 @@
     <div class="card-body">
       {{product.description}}
     </div>
+    <div class="card-footer">
+      <span class="badge badge-pill badge-info" style="margin: auto 2pt; font-size: 10pt" *ngFor="let tag of product.tags">{{tag}}</span>
+    </div>
   </div>
   <div class="card" style="margin-top: 10px" *ngIf="userRole == 'USER'">
     <h5 class="card-title" style="margin: 10px 0 0 20px">Order product</h5>

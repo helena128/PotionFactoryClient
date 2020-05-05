@@ -56,7 +56,7 @@ export class GraphqlService {
       query: gql`
       query GetProductDetails($id: Int!) {
         product(id: $id) {
-          id name description
+          id name tags description
         }
       }
       `,
