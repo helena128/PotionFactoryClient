@@ -5,6 +5,7 @@ import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
 import {GraphqlService} from "../graphql.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-manufacture-report',
@@ -23,7 +24,7 @@ export class ManufactureReportComponent implements OnInit {
 
   isValidProductChosen: Boolean = true;
 
-  constructor(private apiService: GraphqlService, private fb: FormBuilder, private router: Router) { }
+  constructor(private apiService: GraphqlService, private fb: FormBuilder, private router: Router, private toaster: ToastrService) { }
 
   ngOnInit(): void {
     this.manufacturedItemList.push({} as Product);
@@ -57,6 +58,7 @@ export class ManufactureReportComponent implements OnInit {
       this.manufacturedItemList.pop();
       this.manufacturedItemList.push(this.currentProduct, {} as Product);
       this.isValidProductChosen = true;
+      // TODO: always set 1 as default value for count
       this.currentProduct = {} as Product;
     } else {
       this.isValidProductChosen = false;
@@ -83,14 +85,22 @@ export class ManufactureReportComponent implements OnInit {
 
   sendRequest() {
     // TODO
-    console.log(this.manufacturedItemList)
+    console.log(this.manufacturedItemList);
     var productArgs: number[] = [];
     this.manufacturedItemList.forEach(prod => {
-      for (var i = 0; i < prod.count; i++) {
-        productArgs.push(prod.id)
+      if (typeof prod.id !== "undefined") {
+        for (var i = 0; i < prod.count; i++) {
+          productArgs.push(prod.id)
+        }
       }
     });
-    this.apiService.createReportRequest(productArgs).subscribe((id) => console.log(id));
+    this.apiService.createReportRequest(productArgs).subscribe((id) => {
+      if (typeof id !== 'undefined') {
+        this.toaster.success('Successfully created report with id: ' + id);
+      } else {
+        this.toaster.warning('Couldn\'t create report');
+      }
+    });
   }
 
   validateInput(s: String) {
