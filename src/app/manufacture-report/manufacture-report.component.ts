@@ -21,6 +21,8 @@ export class ManufactureReportComponent implements OnInit {
   public amountValues = [1, 2, 3, 4, 5];
   public manufacturedItemList: Array<Product> = [];
 
+  isValidProductChosen: Boolean = true;
+
   constructor(private apiService: GraphqlService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -29,6 +31,7 @@ export class ManufactureReportComponent implements OnInit {
     this.countForm = this.fb.group({
       countControl: [ 1 ]
     });
+    this.countForm.valueChanges.subscribe(x => console.log(x));
   }
 
   search = (text: Observable<string>) =>
@@ -49,10 +52,15 @@ export class ManufactureReportComponent implements OnInit {
 
   public add(): void {
     const amount = this.countForm.controls.countControl.value;
-    this.currentProduct.count = amount;
-    this.manufacturedItemList.pop();
-    this.manufacturedItemList.push(this.currentProduct, {} as Product);
-    console.log(this.manufacturedItemList);
+    if (typeof this.currentProduct?.id !== 'undefined') {
+      this.currentProduct.count = amount;
+      this.manufacturedItemList.pop();
+      this.manufacturedItemList.push(this.currentProduct, {} as Product);
+      this.isValidProductChosen = true;
+      this.currentProduct = {} as Product;
+    } else {
+      this.isValidProductChosen = false;
+    }
   }
 
   public remove(idx: number): void {
@@ -60,20 +68,31 @@ export class ManufactureReportComponent implements OnInit {
   }
 
   public navigate(id: number): void {
-    console.log('ID:', id);
     this.router.navigate(['products', id]);
+  }
+
+  handleValueChange(event: any, id: number) {
+    const amount = Number.parseInt(event);
+    const existingProduct = this.manufacturedItemList.filter(pr => pr.id === id)[0];
+    if (existingProduct) {
+      existingProduct.count = amount;
+    } else if (typeof this.currentProduct?.id !== 'undefined') {
+      this.currentProduct.count = amount;
+    }
   }
 
   sendRequest() {
     // TODO
+    console.log(this.manufacturedItemList)
   }
 
   validateInput(s: String) {
     let l = this.lastComplete.filter(v => v.name == s)
-    if (l.length != 1) console.error("Eblan");
-    else {
-      console.log(l[0])
+    if (l.length != 1) {
+      this.isValidProductChosen = false;
+    } else {
       this.currentProduct = l[0];
+      this.isValidProductChosen = true;
     }
   }
 }
