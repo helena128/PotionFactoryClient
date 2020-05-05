@@ -66,7 +66,7 @@ export class IngredientsRequestComponent implements OnInit {
   }
 
   public redirectToDetailsPage(id: number): void {
-    this.router.navigate(['/ingredients/:id', id]);
+    this.router.navigate(['ingredients', id]);
   }
 
   public request() {
