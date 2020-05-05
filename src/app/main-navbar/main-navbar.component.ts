@@ -20,7 +20,7 @@ export class MainNavbarComponent implements OnInit {
   }
 
   public navigate(link: string): void {
-    this.router.navigate([link]/*, {relativeTo: this.route}*/)
+    this.router.navigate([link]);
   }
 
   public exit(): void {
