@@ -79,11 +79,11 @@ export class GraphqlService {
   }
 
   // TODO: fix
-  createIngredientRequest(irequest: IngredientRequest['ingredients']): any {
+  createIngredientRequest(irequest: number[]): any {
     return this.apollo.mutate<api.Mutation['requestIngredient']>({
       mutation: gql`
-        mutation CreateIngredientRequest($req: IngredientRequest!) {
-          requestIngredient(ingredients: $req)
+        mutation requestIngredient($id: [int]!) {
+            id
         }
       `,
       variables: { ingredients: irequest }
