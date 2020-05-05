@@ -6,7 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {MutationCreateOrderArgs, OrderArg} from "./api-types";
+import {MutationCreateOrderArgs, OrderArg, RequestArg} from "./api-types";
 import {
   CREATE_ORDER_REQUEST,
   GET_ALL_INGREDIENTS,
@@ -67,7 +67,7 @@ export class GraphqlService {
     }).valueChanges.pipe(map(r => r.data['ingredient']));
   }
 
-  createOrderRequest(order: MutationCreateOrderArgs['order']): any {
+  createOrderRequest(order: MutationCreateOrderArgs['order']): Observable<api.Mutation['createOrder']> {
     return this.apollo.mutate<api.Mutation['createOrder']>({
       mutation: gql`
         mutation CreateOrder($order: OrderArg!) {
@@ -79,15 +79,12 @@ export class GraphqlService {
   }
 
   // TODO: fix
-  createIngredientRequest(irequest: number[]): any {
+  createIngredientRequest(irequest: RequestArg): any {
     return this.apollo.mutate<api.Mutation['requestIngredient']>({
-      mutation: gql`
-        mutation requestIngredient($id: [Int]!) {
-            id
-        }
-      `,
-      variables: { ingredients: irequest }
-    });
+      mutation: gql` mutation RequestIngredient($request: RequestArg!) {
+        requestIngredient(request: $request) }`,
+      variables: { request: irequest }
+    }).pipe(map(r => r.data['requestIngredient']));
   }
 
   createReportRequest(reportRequest: number[]): Observable<any> {
