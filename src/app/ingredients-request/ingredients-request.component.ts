@@ -69,6 +69,10 @@ export class IngredientsRequestComponent implements OnInit {
     this.router.navigate(['/ingredients/:id', id]);
   }
 
+  public request() {
+    this.api.createIngredientRequest(this.ingredientList);
+  }
+
   validateInput(s: String) {
     let l = this.lastComplete.filter(v => v.name == s)
     if (l.length != 1) console.error("Eblan");
