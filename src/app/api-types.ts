@@ -87,6 +87,7 @@ export type MutationMakeReportArgs = {
 export type Order = IdentifiableWithInt & {
    __typename?: 'Order';
   id: Scalars['Int'];
+  count: Scalars['Int'];
   orderedBy: Scalars['String'];
   product: Product;
 };
@@ -98,6 +99,7 @@ export type Product = IdentifiableWithInt & {
   description: Scalars['String'];
   count: Scalars['Int'];
   basePrice: Scalars['Float'];
+  tags: Array<Scalars['String']>;
   recipe: Recipe;
 };
 
