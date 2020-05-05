@@ -34,12 +34,6 @@ export type Ingredient = IdentifiableWithInt & {
   count: Scalars['Int'];
 };
 
-export type IngredientRequest = IdentifiableWithInt & {
-   __typename?: 'IngredientRequest';
-  id: Scalars['Int'];
-  ingredients: Array<Ingredient>;
-};
-
 export type Knowledge = IdentifiableWithInt & {
    __typename?: 'Knowledge';
   id: Scalars['Int'];
@@ -60,8 +54,8 @@ export enum KnowledgeKind {
 export type Mutation = {
    __typename?: 'Mutation';
   createOrder: Scalars['Int'];
-  requestIngredient: IngredientRequest;
-  makeReport: ProductTransfer;
+  requestIngredient: Scalars['Int'];
+  makeReport: Scalars['Int'];
 };
 
 
@@ -73,7 +67,7 @@ export type MutationCreateOrderArgs = {
 
 /** Schema Mutations */
 export type MutationRequestIngredientArgs = {
-  ingredients: Array<Scalars['Int']>;
+  request: RequestArg;
 };
 
 
@@ -98,19 +92,6 @@ export type Product = IdentifiableWithInt & {
   tags: Array<Scalars['String']>;
   recipe: Recipe;
 };
-
-export type ProductTransfer = IdentifiableWithInt & {
-   __typename?: 'ProductTransfer';
-  id: Scalars['Int'];
-  status: ProductTransferStatus;
-  products: Array<Product>;
-};
-
-export enum ProductTransferStatus {
-  Stored = 'Stored',
-  Transferred = 'Transferred',
-  Produced = 'Produced'
-}
 
 /** Schema Queries */
 export type Query = {
@@ -155,6 +136,10 @@ export type Recipe = IdentifiableWithInt & {
   name: Scalars['String'];
   description: Scalars['String'];
   ingredients: Array<Ingredient>;
+};
+
+export type RequestArg = {
+  ingredients: Array<Scalars['Int']>;
 };
 
 /** User account and info */
