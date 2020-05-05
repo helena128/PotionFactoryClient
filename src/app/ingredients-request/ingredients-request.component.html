@@ -1,51 +1,57 @@
 <div class="container">
   <div class="header">Request ingredients</div>
-<!--  <div *ngFor="let req of ingredientRequestList; let last = last" style="display: flex; align-items: center; justify-content: center">-->
-
+  <div *ngFor="let ingr of ingredientList; let last = last; let index = index" style="display: flex; align-items: center; justify-content: center">
     <div class="row-elem">
-      <input #id type="hidden"/>
+      <input type="search" #name class="form-control" [ngbTypeahead]="search" (focusout)="validateInput(name.value)" *ngIf="last"/>
+      <input type="search" [value]="ingr.name" class="form-control" *ngIf="!last" disabled/>
     </div>
     <div class="row-elem">
-      <input #name type="search" class="form-control" [ngbTypeahead]="search" (focusout)="validateInput(name.value)"/>
+
+      <form [formGroup]="countForm">
+        <select formControlName="countControl" class="custom-select">
+          <option [value]="amount" *ngFor="let amount of amountOptions">{{amount}}</option>
+        </select>
+      </form>
+
     </div>
-<!--    <div class="row-elem">-->
 
-<!--      <select class="custom-select">-->
-<!--        <option *ngFor="let amount of amountValues">-->
-<!--          {{amount}}-->
-<!--        </option>-->
-<!--      </select>-->
+    <div class="row-elem">
+      <button *ngIf="last" class="btn btn-info" (click)="add()"><i class="fa fa-plus" ></i> </button>
+      <button *ngIf="!last" class="btn btn-info" (click)="remove(index)"><i class="fa fa-minus"></i> </button>
+    </div>
 
-<!--    </div>-->
+    <div class="row-elem" style="width: 20px">
+      <button (click)="redirectToDetailsPage(ingr.id)" *ngIf="!last" class="btn btn-secondary">
+        <i class="fa fa-info"></i>
+      </button>
+    </div>
+  </div>
+  <!--
+    <div class="row-elem" style="width: 20px">
+      <button (click)="redirectToDetailsPage(1)" *ngIf="!last" class="btn btn-secondary"><i class="fa fa-info"></i> </button>
+    </div>
 
-<!--    <div class="row-elem">-->
-<!--      <button *ngIf="last" class="btn btn-info"><i class="fa fa-plus"></i> </button>-->
-<!--      <button *ngIf="!last" class="btn btn-info"><i class="fa fa-minus"></i> </button>-->
-<!--    </div>-->
-<!--    <div class="row-elem" style="width: 20px">-->
-<!--      <button (click)="redirectToDetailsPage(1)" *ngIf="!last" class="btn btn-secondary"><i class="fa fa-info"></i> </button>-->
-<!--    </div>-->
+  </div>
 
-<!--  </div>-->
-<!--  -->
-<!--  <div *ngFor="let req of ingredientRequestList; let last = last" style="display: flex; align-items: center; justify-content: center">-->
-<!--    <div class="row-elem">-->
-<!--      <input type="search" class="form-control" [value]="req.name" [disabled]="!last">-->
-<!--    </div>-->
-<!--    <div class="row-elem">-->
-<!--      <select class="custom-select">-->
-<!--        <option *ngFor="let amount of amountValues; let first = first" [selected]="req.amount - 1 == amount">{{amount}}</option>-->
-<!--      </select>-->
-<!--    </div>-->
-<!--    <div class="row-elem">-->
-<!--      <button *ngIf="last" class="btn btn-info"><i class="fa fa-plus"></i> </button>-->
-<!--      <button *ngIf="!last" class="btn btn-info"><i class="fa fa-minus"></i> </button>-->
-<!--    </div>-->
-<!--    <div class="row-elem" style="width: 20px">-->
-<!--      <button (click)="redirectToDetailsPage(1)" *ngIf="!last" class="btn btn-secondary"><i class="fa fa-info"></i> </button>-->
-<!--    </div>-->
-<!--  </div>-->
-  <div style="margin-top: 10px" class="submit-btn">
+  <div *ngFor="let req of ingredientRequestList; let last = last" style="display: flex; align-items: center; justify-content: center">
+    <div class="row-elem">
+      <input type="search" class="form-control" [value]="req.name" [disabled]="!last">
+    </div>
+    <div class="row-elem">
+      <select class="custom-select">
+        <option *ngFor="let amount of amountValues; let first = first" [selected]="req.amount - 1 == amount">{{amount}}</option>
+      </select>
+    </div>
+    <div class="row-elem">
+      <button *ngIf="last" class="btn btn-info"><i class="fa fa-plus"></i> </button>
+      <button *ngIf="!last" class="btn btn-info"><i class="fa fa-minus"></i> </button>
+    </div>
+    <div class="row-elem" style="width: 20px">
+      <button (click)="redirectToDetailsPage(1)" *ngIf="!last" class="btn btn-secondary"><i class="fa fa-info"></i> </button>
+    </div>
+  </div>-->
+  <!-- TODO: make align center -->
+  <div style="margin-top: 10px;" class="submit-btn">
     <button class="btn btn-warning">Send request</button>
   </div>
 </div>
