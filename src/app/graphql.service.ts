@@ -6,7 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {IngredientRequest, MutationCreateOrderArgs, OrderArg} from "./api-types";
+import {MutationCreateOrderArgs, OrderArg} from "./api-types";
 import {
   CREATE_ORDER_REQUEST,
   GET_ALL_INGREDIENTS,
