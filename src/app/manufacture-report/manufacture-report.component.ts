@@ -84,6 +84,13 @@ export class ManufactureReportComponent implements OnInit {
   sendRequest() {
     // TODO
     console.log(this.manufacturedItemList)
+    var productArgs: number[] = [];
+    this.manufacturedItemList.forEach(prod => {
+      for (var i = 0; i < prod.count; i++) {
+        productArgs.push(prod.id)
+      }
+    });
+    this.apiService.createReportRequest(productArgs).subscribe((id) => console.log(id));
   }
 
   validateInput(s: String) {
