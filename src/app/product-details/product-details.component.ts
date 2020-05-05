@@ -44,9 +44,8 @@ export class ProductDetailsComponent implements OnInit {
       count: count
     } as MutationCreateOrderArgs['order'];
 
-    this.service.createOrderRequest(order).subscribe(data => {
-      let order_id = data?.data?.createOrder
-      if (order_id) this.toastr.success("Order " + data?.data?.createOrder + " is created")
+    this.service.createOrderRequest(order).subscribe(orderId => {
+      if (orderId) this.toastr.success("Order " + orderId + " is created");
       else this.toastr.error("Failed to create order")
     })
   }

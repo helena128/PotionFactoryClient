@@ -75,7 +75,7 @@ export class GraphqlService {
         }
       `,
       variables: {order: order}
-    });
+    }).pipe(map(r => r.data['createOrder']));
   }
 
   // TODO: fix
