@@ -70,7 +70,7 @@ export class IngredientsRequestComponent implements OnInit {
   }
 
   public request() {
-    this.api.createIngredientRequest(this.ingredientList);
+    this.api.createIngredientRequest(this.ingredientList.map(s => s.id));
   }
 
   validateInput(s: String) {
