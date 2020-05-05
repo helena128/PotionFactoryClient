@@ -59,7 +59,7 @@ export enum KnowledgeKind {
 /** Schema Mutations */
 export type Mutation = {
    __typename?: 'Mutation';
-  createOrder: Order;
+  createOrder: Scalars['Int'];
   requestIngredient: IngredientRequest;
   makeReport: ProductTransfer;
 };
@@ -67,9 +67,7 @@ export type Mutation = {
 
 /** Schema Mutations */
 export type MutationCreateOrderArgs = {
-  product: Scalars['Int'];
-  count: Scalars['Int'];
-  orderedBy: Scalars['String'];
+  order: OrderArg;
 };
 
 
@@ -84,12 +82,10 @@ export type MutationMakeReportArgs = {
   products: Array<Scalars['Int']>;
 };
 
-export type Order = IdentifiableWithInt & {
-   __typename?: 'Order';
-  id: Scalars['Int'];
+export type OrderArg = {
+  product: Scalars['Int'];
   count: Scalars['Int'];
   orderedBy: Scalars['String'];
-  product: Product;
 };
 
 export type Product = IdentifiableWithInt & {

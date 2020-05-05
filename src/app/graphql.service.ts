@@ -6,7 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {MutationCreateOrderArgs, Order} from "./api-types";
+import {MutationCreateOrderArgs, OrderArg} from "./api-types";
 
 
 @Injectable({
@@ -79,16 +79,14 @@ export class GraphqlService {
     }).valueChanges.pipe(map(r => r.data['ingredient']));
   }
 
-  createOrderRequest(order: MutationCreateOrderArgs): any {
+  createOrderRequest(order: MutationCreateOrderArgs['order']): any {
     return this.apollo.mutate<api.Mutation['createOrder']>({
       mutation: gql`
-        mutation CreateOrder($orderedBy: String!, $product: Int!, $count: Int!) {
-          createOrder(orderedBy: $orderedBy, product: $product, count: $count) {
-            id
-          }
+        mutation CreateOrder($order: OrderArg!) {
+          createOrder(order: $order)
         }
       `,
-      variables: order
+      variables: {order: order}
     });
   }
 }

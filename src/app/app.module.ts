@@ -19,6 +19,8 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   // exports: [
   //   GraphQLModule
