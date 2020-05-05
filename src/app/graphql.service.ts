@@ -94,11 +94,9 @@ export class GraphqlService {
     return this.apollo.mutate<api.Mutation['makeReport']>({
       mutation: gql`
       mutation MakeReport($products: [Int!]!) {
-        makeReport(products: $products) {
-          id
-        }
+        makeReport(products: $products)
       }`,
       variables: { products: reportRequest }
-    })
+    }).pipe(map(r => r.data['makeReport']));
   }
 }
