@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class MainNavbarComponent implements OnInit {
 
-  public userRole: UserRole = UserRole.WorkshopOperator;
+  public userRole: UserRole = UserRole.User;
 
   public headers: Array<Header>;
 
