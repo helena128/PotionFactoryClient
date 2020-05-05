@@ -89,4 +89,16 @@ export class GraphqlService {
       variables: { ingredients: irequest }
     });
   }
+
+  createReportRequest(reportRequest: number[]): Observable<any> {
+    return this.apollo.mutate<api.Mutation['makeReport']>({
+      mutation: gql`
+      mutation MakeReport($products: [Int!]!) {
+        makeReport(products: $products) {
+          id
+        }
+      }`,
+      variables: { products: reportRequest }
+    })
+  }
 }
