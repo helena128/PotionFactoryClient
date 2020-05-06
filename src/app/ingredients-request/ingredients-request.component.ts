@@ -60,7 +60,8 @@ export class IngredientsRequestComponent implements OnInit {
   }
 
   public redirectToDetailsPage(id: number): void {
-    this.router.navigate(['ingredients', id]);
+    let url = this.router.createUrlTree(['ingredients', id]).toString()
+    window.open(url)
   }
 
   public request() {

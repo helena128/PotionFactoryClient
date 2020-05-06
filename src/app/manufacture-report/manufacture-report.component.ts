@@ -70,7 +70,8 @@ export class ManufactureReportComponent implements OnInit {
   }
 
   public navigate(id: number): void {
-    this.router.navigate(['products', id]);
+    let url = this.router.createUrlTree(['products', id]).toString()
+    window.open(url)
   }
 
   handleValueChange(event: any, id: number) {

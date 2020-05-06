@@ -12,7 +12,7 @@
   <div class="card-wrapper">
     <div class="card" style="margin-top: 10px;" *ngFor="let book of results | async">
       <h5 style="margin: 20px 0 0 20px; " class="card-title">
-        <a style="cursor: pointer;" class="text-primary" href="/books/{{book.id}}">{{book.name}}</a>
+        <a style="cursor: pointer;" class="text-primary" href="/books/{{book.id}}" target="_blank">{{book.name}}</a>
       </h5>
       <div class="card-body">{{book.content}}</div>
     </div>

@@ -116,7 +116,6 @@ export class GraphqlService {
     }).pipe(map(r => r.data['createOrder']));
   }
 
-  // TODO: fix
   createIngredientRequest(irequest: RequestArg): any {
     return this.apollo.mutate<api.Mutation['requestIngredient']>({
       mutation: gql` mutation RequestIngredient($request: RequestArg!) {
