@@ -58,7 +58,7 @@ export enum KnowledgeKind {
 /** Schema Mutations */
 export type Mutation = {
    __typename?: 'Mutation';
-  login: User;
+  login?: Maybe<User>;
   logout: Scalars['Boolean'];
   createOrder: Scalars['Int'];
   requestIngredient: Scalars['Int'];
@@ -109,9 +109,11 @@ export type Product = IdentifiableWithInt & {
 /** Schema Queries */
 export type Query = {
    __typename?: 'Query';
+  loggedIn: Scalars['Boolean'];
   currentUser?: Maybe<User>;
   user?: Maybe<User>;
   searchKnowledge: Array<Knowledge>;
+  getKnowledge: Knowledge;
   ingredient: Ingredient;
   allIngredients: Array<Ingredient>;
   product: Product;
@@ -130,6 +132,12 @@ export type QuerySearchKnowledgeArgs = {
   string: Scalars['String'];
   limit: Scalars['Int'];
   lookaround: Scalars['Int'];
+};
+
+
+/** Schema Queries */
+export type QueryGetKnowledgeArgs = {
+  id: Scalars['Int'];
 };
 
 

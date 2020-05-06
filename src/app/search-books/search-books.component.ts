@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-// import {Book} from "../model/book";
-// import { Apollo } from 'apollo-angular';
-// import gql from 'graphql-tag';
-// import { map } from 'rxjs/operators';
-
-import {Observable} from 'rxjs';
+import {Observable, Subscriber} from 'rxjs';
 import {Knowledge, Query} from '../api-types'
 import {GraphqlService} from '../graphql.service'
 

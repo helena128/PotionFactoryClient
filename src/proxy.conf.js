@@ -7,7 +7,9 @@ const PROXY_CONFIG = {
         console.log("Skipping proxy for browser request.");
         return "/index.html";
       }
-    }
+    },
+    // "changeOrigin": true,
+    // "cookieDomainRewrite": "localhost"
   }
 };
 

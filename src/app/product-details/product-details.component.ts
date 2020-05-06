@@ -35,7 +35,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   public createRequest(): void {
-    var count = this.countForm.controls['countControl'].value;
+    var count = Number.parseInt(this.countForm.controls['countControl'].value);
 
     // TODO: redo - get username and send product_id instead of product
     var order = {
