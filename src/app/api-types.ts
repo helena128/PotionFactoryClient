@@ -15,6 +15,11 @@ export type Scalars = {
   ZonedDateTime: any;
 };
 
+export type Credentials = {
+  id: Scalars['String'];
+  password: Scalars['String'];
+};
+
 /** Entity that can be identified with Integer */
 export type IdentifiableWithInt = {
   id: Scalars['Int'];
@@ -53,9 +58,17 @@ export enum KnowledgeKind {
 /** Schema Mutations */
 export type Mutation = {
    __typename?: 'Mutation';
+  login: User;
+  logout: Scalars['Boolean'];
   createOrder: Scalars['Int'];
   requestIngredient: Scalars['Int'];
   makeReport: Scalars['Int'];
+};
+
+
+/** Schema Mutations */
+export type MutationLoginArgs = {
+  credentials: Credentials;
 };
 
 
@@ -96,6 +109,7 @@ export type Product = IdentifiableWithInt & {
 /** Schema Queries */
 export type Query = {
    __typename?: 'Query';
+  currentUser?: Maybe<User>;
   user?: Maybe<User>;
   searchKnowledge: Array<Knowledge>;
   ingredient: Ingredient;
@@ -146,7 +160,6 @@ export type RequestArg = {
 export type User = IdentifiableWithString & {
    __typename?: 'User';
   id: Scalars['String'];
-  password: Scalars['String'];
   name: Scalars['String'];
   email: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
