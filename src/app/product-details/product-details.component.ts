@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserRole} from "../model/user-role";
-import {MutationCreateOrderArgs, Product} from "../api-types";
+import {MutationCreateOrderArgs, Product, UserRole} from "../api-types";
 import {GraphqlService} from "../graphql.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -12,8 +11,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-
-  public userRole: UserRole = UserRole.User; // TODO: change
+  public userRole: UserRole = UserRole.Client
+  public UserRoles = UserRole
   public product: Product;
   private id: number;
 
@@ -27,6 +26,7 @@ export class ProductDetailsComponent implements OnInit {
               ) {}
 
   ngOnInit(): void {
+    this.userRole = localStorage.getItem("userRole") as UserRole
     this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.service.getProductDetails(this.id).subscribe((data) => this.product = data);
     this.countForm = this.fb.group({
@@ -37,7 +37,6 @@ export class ProductDetailsComponent implements OnInit {
   public createRequest(): void {
     var count = Number.parseInt(this.countForm.controls['countControl'].value);
 
-    // TODO: redo - get username and send product_id instead of product
     var order = {
       orderedBy: 'client',
       product: 1,
