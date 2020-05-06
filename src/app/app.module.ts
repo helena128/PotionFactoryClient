@@ -21,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ManufactureReportComponent,
     CommonDetailsComponent,
     IngredientDetailsComponent,
-    BookContentComponent
+    BookContentComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
