@@ -6,7 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {MutationCreateOrderArgs, OrderArg, RequestArg} from "./api-types";
+import {Credentials, MutationCreateOrderArgs, OrderArg, RequestArg} from "./api-types";
 import {
   CREATE_ORDER_REQUEST,
   GET_ALL_INGREDIENTS,
@@ -23,22 +23,60 @@ import {
 export class GraphqlService {
   constructor(private apollo: Apollo) { }
 
+  currentUser(): Observable<api.Query['currentUser']> {
+    return this.apollo
+      .watchQuery<api.Query['currentUser']>({query: gql`{currentUser() { id }}`})
+      .valueChanges.pipe(map(r => r.data['currentUser']))
+  }
+
+  loggedIn(): Observable<api.Query['loggedIn']> {
+    return this.apollo
+      .watchQuery<api.Query['loggedIn']>({query: gql`{loggedIn}`})
+      .valueChanges.pipe(map(r => r.data['loggedIn']))
+  }
+
+  login(credentials: Credentials): Observable<api.Mutation['login']> {
+    return this.apollo
+      .mutate<api.Mutation['login']>({
+        mutation: gql`
+          mutation Login($creds: Credentials!) {
+            login(credentials: $creds) {
+              id name role
+            }
+          }`,
+        variables: {creds: credentials}})
+    .pipe(map(r => r.data['login']))
+  }
+
+  logout(): Observable<api.Mutation['logout']> {
+    return this.apollo
+      .mutate<api.Mutation['logout']>({
+        mutation: gql`mutation Logout { logout }`
+      })
+    .pipe(map(r => r.data['logout']))
+  }
+
   getAllIngredients(): Observable<api.Query['allIngredients']> {
     return this.apollo
       .watchQuery<api.Query['allIngredients']>({
         query: GET_ALL_INGREDIENTS})
       .valueChanges.pipe(map(r => r.data['allIngredients']))
   }
-  // createRequest()
 
-  searchBooks(string: String, limit: number = 3, lookaround: number = 50):
-    Observable<api.Query['searchKnowledge']>
-  {
+  searchBooks(string: String, limit: number = 3, lookaround: number = 50): Observable<api.Query['searchKnowledge']> {
     return this.apollo
         .watchQuery<api.Query['searchKnowledge']>({
           query: SEARCH_BOOK,
           variables: {string: string, limit: limit, lookaround: lookaround}})
-        .valueChanges.pipe(map(r => r.data['searchKnowledge']));
+        .valueChanges.pipe(map(r => r.data['searchKnowledge']))
+  }
+
+  getBook(id: Number): Observable<api.Query['getKnowledge']> {
+    return this.apollo
+      .watchQuery<api.Query['getKnowledge']>({
+        query: gql`query GetKnowledge($id: Int!){ getKnowledge(id: $id) {id name kind content}}`,
+        variables: {id: id}
+      }).valueChanges.pipe(map(r => r.data['getKnowledge']))
   }
 
   searchProducts(limit: number = 10): Observable<api.Query['allProducts']> {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UserRole} from "../model/user-role";
 import {ActivatedRoute, Router} from "@angular/router";
+import {GraphqlService} from "../graphql.service";
+import {UserRole} from "../api-types";
 
 @Component({
   selector: 'app-main-navbar',
@@ -8,14 +9,20 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./main-navbar.component.scss']
 })
 export class MainNavbarComponent implements OnInit {
-
-  public userRole: UserRole = UserRole.User;
+  public userRole: UserRole = UserRole.Client;
 
   public headers: Array<Header>;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private api: GraphqlService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    let role = localStorage.getItem('userRole')
+    if (!role) this.router.navigate(['login'])
+
+    this.userRole = role as UserRole
     this.initUserRoles();
   }
 
@@ -24,7 +31,13 @@ export class MainNavbarComponent implements OnInit {
   }
 
   public exit(): void {
-    console.debug('Exiting');
+    this.api.logout()
+      .subscribe(v => {
+        // if (v) {
+          localStorage.removeItem('userRole')
+          this.router.navigate(['login'])
+        // }
+  })
   }
 
   private initUserRoles(): void {
@@ -34,7 +47,7 @@ export class MainNavbarComponent implements OnInit {
       link: ""
     });
     switch (this.userRole) {
-      case UserRole.User:
+      case UserRole.Client:
         this.headers.push(
           {
             name: "Products",
@@ -45,24 +58,24 @@ export class MainNavbarComponent implements OnInit {
             link: "orders"
           });
         break;
-      case UserRole.Administrator:
+      case UserRole.Admin:
         this.headers.push(
           {
             name: "Users",
             link: "users"
           });
         break;
-      case UserRole.FairyGodmother:
+      case UserRole.Fairy:
         this.headers.push(
           {
             name: "Literature",
             link: "books"
           });
         break;
-      case UserRole.WareHouseOperator:
+      case UserRole.WarehouseManager:
         //this.headers.push("Accept request"); // TODO: later
         break;
-      case UserRole.WorkshopOperator:
+      case UserRole.WorkshopManager:
         this.headers.push(
           {
             name: "Request Ingredients",

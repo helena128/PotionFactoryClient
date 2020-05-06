@@ -8,6 +8,7 @@ import {IngredientsRequestComponent} from "./ingredients-request/ingredients-req
 import {ManufactureReportComponent} from "./manufacture-report/manufacture-report.component";
 import {IngredientDetailsComponent} from "./ingredient-details/ingredient-details.component";
 import {BookContentComponent} from "./book-content/book-content.component";
+import {LoginFormComponent} from "./login-form/login-form.component";
 
 
 const routes: Routes = [
@@ -39,7 +40,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: '**', redirectTo: ''
+        path: 'login', component: LoginFormComponent
+  },
+  {
+    path: '**',
+    // redirectTo: ''
+    component: LoginFormComponent
   }
 ];
 

@@ -13,7 +13,7 @@ export const GET_INGREDIENT_BY_ID = gql`
 export const SEARCH_BOOK = gql`
             query SearchKnowledge($string: String!, $limit: Int!, $lookaround: Int!) {
               searchKnowledge(string: $string, limit: $limit, lookaround: $lookaround) {
-                name content
+                id name content
               }
             }`;
 
