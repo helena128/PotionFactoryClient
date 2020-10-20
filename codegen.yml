@@ -1,5 +1,5 @@
 overwrite: true
-schema: ../public/schema.graphql
+schema: ../docs/schema.graphql
 
 generates:
   ./src/app/api-types.ts:
