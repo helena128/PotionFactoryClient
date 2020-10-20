@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserRole} from "../api-types";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {User} from "../model/user";
+import {GraphqlService} from "../graphql.service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -15,29 +15,29 @@ export class EditProfileComponent implements OnInit {
   isRegister: boolean = false;
   userRoleGroup: FormGroup;
   userRoles = [UserRole.Client, UserRole.Admin, UserRole.Fairy, UserRole.WarehouseManager, UserRole.WorkshopManager];
-  user = {
-    id: 1,
-    userName: 'John Smith',
-    email: 'johnsmith@yandex.ru',
-    password: 'Password123!',
-    address: '2 Yellowstone Str, Twin Peaks, Washington',
-    phone: '+1 (999) 0051578',
-    role: UserRole.WarehouseManager
-  }
+  user: any;
+  userRole: UserRole;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router) { }
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private graphqlService: GraphqlService) { }
 
   ngOnInit(): void {
-    /*let id = Number.parseInt(this.route.snapshot.paramMap.get('id'))
+    this.userRole = localStorage.getItem('userRole') as UserRole;
+/*    let id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     if (!id) {
       this.isCreateProfile = true;
-    }
+    }*/
     this.userRoleGroup = this.fb.group({
       userRoleControl: [ UserRole.WarehouseManager ]
     });
-    this.userRoleGroup.valueChanges.subscribe(x => console.log(x));*/
-    this.isEditCurrentProfile = this.router.url === '/settings';
+    this.userRoleGroup.valueChanges.subscribe(x => console.log(x));
+
+    this.isEditCurrentProfile = (this.router.url === '/settings');
     this.isRegister = this.router.url === '/register';
+
+    // init user
+    if (this.isEditCurrentProfile) {
+      this.graphqlService.currentUser().subscribe(data => this.user = data); // TODO: fix this
+    }
   }
 
   handleUserRoleChange(event: any) {
@@ -65,6 +65,14 @@ export class EditProfileComponent implements OnInit {
       return 'Sign up';
     }
     return 'Save changes';
+  }
+
+  public saveChanges(): void {
+    this.graphqlService.updateUserOwnProfile({
+      password: this.user.password,
+      address: this.user.address,
+      phone: this.user.phone
+    }).subscribe(data => this.user = data);
   }
 
 }

@@ -44,7 +44,7 @@ export class MainNavbarComponent implements OnInit {
     this.headers = new Array<Header>();
     this.headers.push({
       name: "Home",
-      link: ""
+      link: "home"
     });
     switch (this.userRole) {
       case UserRole.Client:
