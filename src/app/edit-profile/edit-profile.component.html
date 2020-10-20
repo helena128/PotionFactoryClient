@@ -3,22 +3,22 @@
 
   <div style="align-items: center; justify-content: center">
     <div style="flex: 1;">
-      <input type="text" class="form-control" placeholder="User name" [defaultValue]="isCreateProfile ? '': user.userName"
+      <input type="text" class="form-control" placeholder="User name" [value]="isCreateProfile ? '': user.name"
       [disabled]="!isCreateProfile && !isRegister"/>
     </div>
     <div style="display: flex; margin-top: 20px">
       <input type="email" class="form-control" placeholder="Email" style="margin-right: 10px"
              [disabled]="!isCreateProfile && !isRegister"
              [defaultValue]="isCreateProfile ? '': user.email"/>
-      <input type="password" class="form-control" placeholder="Password" [defaultValue]="isCreateProfile ? '' : user.password"
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="isCreateProfile ? '' : user.password"
       [hidden]="!isCreateProfile && !isEditCurrentProfile && !isRegister"/>
     </div>
     <div style="margin-top: 20px">
-      <input type="tel" class="form-control" placeholder="Telephone" [defaultValue]="isCreateProfile ? '': user.phone"
+      <input type="tel" class="form-control" placeholder="Telephone" [(ngModel)]="isCreateProfile ? '': user.phone"
       [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister">
     </div>
     <div style="margin-top: 20px">
-      <input type="text" class="form-control" placeholder="Address" [defaultValue]="isCreateProfile ? '': user.address"
+      <input type="text" class="form-control" placeholder="Address" [(ngModel)]="isCreateProfile ? '': user.address"
       [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister">
     </div>
     <div style="margin-top: 20px" *ngIf="!isEditCurrentProfile && !isRegister">
@@ -30,7 +30,7 @@
     </div>
   </div>
   <div style="margin-top: 10px;" class="submit-btn">
-    <button class="btn btn-warning" style="margin-right: 10px">{{this.getSaveButtonCaption()}}</button>
+    <button class="btn btn-warning" style="margin-right: 10px" (click)="saveChanges()">{{this.getSaveButtonCaption()}}</button>
     <button class="btn btn-danger" [hidden]="isCreateProfile || isEditCurrentProfile || isRegister">Deactivate user</button>
   </div>
 </div>

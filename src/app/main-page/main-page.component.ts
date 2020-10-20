@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserRole} from "../model/user-role";
+import {Router} from "@angular/router";
+import {UserRole} from "../api-types";
 
 @Component({
   selector: 'app-main-page',
@@ -8,9 +9,20 @@ import {UserRole} from "../model/user-role";
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    const userRole =  localStorage.getItem('userRole') as UserRole;
+    console.log( localStorage.getItem('userRole'));
+    this.router.navigate([this.getHomePageByRole(userRole)]);
   }
 
+  private getHomePageByRole(role: UserRole): string {
+    switch (role) {
+      case UserRole.Client:
+        return 'orders';
+      default:
+        return 'login';
+    }
+  }
 }
