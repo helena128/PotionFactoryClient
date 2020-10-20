@@ -43,7 +43,7 @@
           <td>
             <div style="display: flex; justify-content: space-between">
               <div>
-                TBD
+                {{this.getTagList(product)}}
               </div>
               <div>
                 <button class="btn btn-warning" [routerLink]="['/products', product.id]">View</button>

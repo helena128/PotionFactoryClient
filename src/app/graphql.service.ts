@@ -133,4 +133,13 @@ export class GraphqlService {
       variables: { products: reportRequest }
     }).pipe(map(r => r.data['makeReport']));
   }
+
+  getOrders(): Observable<api.Query['orders']> {
+    return this.apollo
+      .watchQuery<api.Query['orders']>({
+        query: gql`
+          { orders {id count product {name}} }
+        `})
+      .valueChanges.pipe(map(r => r.data['orders']));
+  }
 }

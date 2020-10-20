@@ -1,9 +1,12 @@
 <div class="container" *ngIf="details">
   <div class="header">{{details.name}}</div>
   <div class="card">
-    <h5 class="card-title" style="margin: 10px 0 0 20px">Description</h5>
+    <div class="card-title" style="margin: 10px 0 0 20px">Description</div>
     <div class="card-body">
       {{details.description}}
+    </div>
+    <div class="card-footer" *ngIf="details.tags">
+      <span class="badge badge-pill badge-info" style="margin: auto 2pt; font-size: 10pt" *ngFor="let tag of details.tags">{{tag}}</span>
     </div>
   </div>
 </div>

@@ -17,4 +17,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.service.searchProducts(10).subscribe((data) => this.productList = data);
   }
+
+  getTagList(product: Product): string {
+    return product.tags.slice(0, 2).join(', ');
+  }
 }

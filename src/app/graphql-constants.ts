@@ -18,7 +18,7 @@ export const SEARCH_BOOK = gql`
             }`;
 
 export const GET_ALL_PRODUCTS = gql`
-        { allProducts {id name description} }
+        { allProducts {id name description tags} }
       `;
 
 export const GET_PRODUCT_DETAILS = gql`

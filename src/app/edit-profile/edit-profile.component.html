@@ -1,23 +1,27 @@
 <div class="container">
-  <div class="header">{{this.isCreateProfile ? 'Create profile' : 'Edit profile'}}</div>
+  <div class="header">{{this.getHeader()}}</div>
 
   <div style="align-items: center; justify-content: center">
     <div style="flex: 1;">
-      <input type="text" class="form-control" placeholder="User name" [defaultValue]="isCreateProfile ? '': user.userName"/>
+      <input type="text" class="form-control" placeholder="User name" [defaultValue]="isCreateProfile ? '': user.userName"
+      [disabled]="!isCreateProfile && !isRegister"/>
     </div>
     <div style="display: flex; margin-top: 20px">
-      <input type="email" class="form-control" placeholder="Email" style="margin-right: 10px" [disabled]="!isCreateProfile"
+      <input type="email" class="form-control" placeholder="Email" style="margin-right: 10px"
+             [disabled]="!isCreateProfile && !isRegister"
              [defaultValue]="isCreateProfile ? '': user.email"/>
-      <input type="text" class="form-control" placeholder="Password" [defaultValue]="isCreateProfile ? '' : user.password"
-      [hidden]="!isCreateProfile"/>
+      <input type="password" class="form-control" placeholder="Password" [defaultValue]="isCreateProfile ? '' : user.password"
+      [hidden]="!isCreateProfile && !isEditCurrentProfile && !isRegister"/>
     </div>
     <div style="margin-top: 20px">
-      <input type="tel" class="form-control" placeholder="Telephone" [defaultValue]="isCreateProfile ? '': user.phone">
+      <input type="tel" class="form-control" placeholder="Telephone" [defaultValue]="isCreateProfile ? '': user.phone"
+      [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister">
     </div>
     <div style="margin-top: 20px">
-      <input type="text" class="form-control" placeholder="Address" [defaultValue]="isCreateProfile ? '': user.address">
+      <input type="text" class="form-control" placeholder="Address" [defaultValue]="isCreateProfile ? '': user.address"
+      [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister">
     </div>
-    <div style="margin-top: 20px">
+    <div style="margin-top: 20px" *ngIf="!isEditCurrentProfile && !isRegister">
       <form [formGroup]="userRoleGroup">
         <select formControlName="userRoleControl" class="custom-select" (ngModelChange)="handleUserRoleChange($event)">
           <option [value]="role" *ngFor="let role of userRoles">{{role}}</option>
@@ -26,7 +30,7 @@
     </div>
   </div>
   <div style="margin-top: 10px;" class="submit-btn">
-    <button class="btn btn-warning" style="margin-right: 10px">{{this.isCreateProfile ? 'Create profile' : 'Save changes'}}</button>
-    <button class="btn btn-danger" [hidden]="isCreateProfile">Deactivate user</button>
+    <button class="btn btn-warning" style="margin-right: 10px">{{this.getSaveButtonCaption()}}</button>
+    <button class="btn btn-danger" [hidden]="isCreateProfile || isEditCurrentProfile || isRegister">Deactivate user</button>
   </div>
 </div>
