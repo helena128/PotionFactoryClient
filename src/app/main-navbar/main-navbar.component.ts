@@ -70,19 +70,32 @@ export class MainNavbarComponent implements OnInit {
           {
             name: "Literature",
             link: "books"
+          },
+          {
+            name: 'Recipes',
+            link: 'recipes'
           });
         break;
       case UserRole.WarehouseManager:
-        //this.headers.push("Accept request"); // TODO: later
+        this.headers.push({
+          name: "Ingredients Request",
+          link: "ingredients"
+        },
+          {
+            name: "Product Transfer",
+            link: "transfer"
+          });
         break;
       case UserRole.WorkshopManager:
         this.headers.push(
           {
-            name: "Request Ingredients",
-            link: "ingredients"
+            name: 'Ingredient request', link: 'ingredients'
           },
           {
-            name: "Manufacture Report", link: "report"
+            name: 'Product Transfer', link: 'report'
+          },
+          {
+            name: 'Products', link: 'products'
           });
     }
   }

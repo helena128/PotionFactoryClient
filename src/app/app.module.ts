@@ -22,6 +22,16 @@ import { NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LoginFormComponent } from './login-form/login-form.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { IngredientsListComponentComponent } from './ingredients-list-component/ingredients-list-component.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { ReportListComponent } from './report-list/report-list.component';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +47,16 @@ import { LoginFormComponent } from './login-form/login-form.component';
     CommonDetailsComponent,
     IngredientDetailsComponent,
     BookContentComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    EditProfileComponent,
+    UserListComponent,
+    IngredientsListComponentComponent,
+    ReportListComponent,
+    RecipeDetailsComponent,
+    RecipeListComponent,
+    RecipeFormComponent,
+    OrderListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +68,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
     HttpClientModule,
     NgbTypeaheadModule,
     BrowserAnimationsModule, // required animations module
+    MatExpansionModule,
     ToastrModule.forRoot() // ToastrModule added
   ],
   // exports: [
