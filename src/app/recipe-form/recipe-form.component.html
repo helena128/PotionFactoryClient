@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="header">Create recipe</div>
+  <div>
+    <h6>Chose ingredients:</h6>
+  </div>
+  <div *ngFor="let ingr of ingredientList; let last = last; let index = index"
+       style="display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+    <div class="row-elem">
+      <input type="search" [value]="ingr.name" class="form-control" *ngIf="!last" disabled/>
+      <input type="search" #name class="form-control" *ngIf="last"/>
+    </div>
+
+    <div class="row-elem" style="margin-left: 10px !important;">
+      <button *ngIf="last" class="btn btn-info" ><i class="fa fa-plus"></i> </button>
+      <button *ngIf="!last" class="btn btn-info" ><i class="fa fa-minus"></i> </button>
+    </div>
+  </div>
+  <div class="form-group" style="margin-top: 30px;">
+    <input type="text" class="form-control" placeholder="Enter recipe description" style="min-height: 60px">
+  </div>
+  <div style="margin-top: 10px;" class="submit-btn">
+    <button class="btn btn-warning" >Create recipe</button>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container">
+  <div style="display: flex; justify-content: space-between">
+    <div style="font-size: 32px; margin: 30px 0">Ingredient Requests</div>
+    <div style="font-size: 32px; margin: 30px 0" *ngIf="isWorkshopOperator()">
+      <button class="btn btn-info" [routerLink]="['/ingredients/request']">Create Ingredient Request</button>
+    </div>
+  </div>
+  <div>
+    <mat-accordion *ngFor="let item of ingredientRequestList">
+      <mat-expansion-panel style="margin-top: 20px">
+        <mat-expansion-panel-header>
+          <mat-panel-title style="font-size: 16px !important;">
+            <div class="lead">ID: {{item.id}}</div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="text-muted">Ingredient1, Ingredient2</div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div style="margin-top: 20px;">
+          <ul class="list-group">
+            <li class="list-group-item active">Requested ingredients</li>
+            <li class="list-group-item">Ingredient1: 2</li>
+            <li class="list-group-item">Ingredient2: 3</li>
+          </ul>
+          <div style="margin-top: 20px">
+            Status:
+            <mark>{{item.status}}</mark>
+          </div>
+          <div *ngIf="item.status != 'SENT_TO_WORKSHOP'" style="margin-top: 20px">
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
+              <button class="btn btn-success">{{isWorkshopOperator() ? 'Arrived at workshop' : 'Requested'}}</button>
+            </span>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
