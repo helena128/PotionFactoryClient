@@ -39,6 +39,19 @@ export type Ingredient = IdentifiableWithInt & {
   count: Scalars['Int'];
 };
 
+export type IngredientRequest = IdentifiableWithInt & {
+   __typename?: 'IngredientRequest';
+  id: Scalars['Int'];
+  status: IngredientRequestStatus;
+  ingredients: Array<Ingredient>;
+};
+
+export enum IngredientRequestStatus {
+  Received = 'Received',
+  Transfer = 'Transfer',
+  Open = 'Open'
+}
+
 export type Knowledge = IdentifiableWithInt & {
    __typename?: 'Knowledge';
   id: Scalars['Int'];
@@ -58,11 +71,27 @@ export enum KnowledgeKind {
 /** Schema Mutations */
 export type Mutation = {
    __typename?: 'Mutation';
+  signup: User;
   login?: Maybe<User>;
   logout: Scalars['Boolean'];
+  createUser: User;
+  updateUser?: Maybe<User>;
+  updateUserSelf: User;
+  deactivateUser: Scalars['Boolean'];
   createOrder: Scalars['Int'];
+  createRecipe: Recipe;
   requestIngredient: Scalars['Int'];
+  transferIngredients: Scalars['Boolean'];
+  receiveIngredients: Scalars['Boolean'];
   makeReport: Scalars['Int'];
+  transferProducts: Scalars['Boolean'];
+  receiveProducts: Scalars['Boolean'];
+};
+
+
+/** Schema Mutations */
+export type MutationSignupArgs = {
+  user: UserSignup;
 };
 
 
@@ -73,8 +102,38 @@ export type MutationLoginArgs = {
 
 
 /** Schema Mutations */
+export type MutationCreateUserArgs = {
+  user: UserEdit;
+};
+
+
+/** Schema Mutations */
+export type MutationUpdateUserArgs = {
+  user: UserEdit;
+};
+
+
+/** Schema Mutations */
+export type MutationUpdateUserSelfArgs = {
+  user: UserChange;
+};
+
+
+/** Schema Mutations */
+export type MutationDeactivateUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+/** Schema Mutations */
 export type MutationCreateOrderArgs = {
   order: OrderArg;
+};
+
+
+/** Schema Mutations */
+export type MutationCreateRecipeArgs = {
+  recipe: RecipeArg;
 };
 
 
@@ -85,8 +144,40 @@ export type MutationRequestIngredientArgs = {
 
 
 /** Schema Mutations */
+export type MutationTransferIngredientsArgs = {
+  requestId: Scalars['Int'];
+};
+
+
+/** Schema Mutations */
+export type MutationReceiveIngredientsArgs = {
+  requestId: Scalars['Int'];
+};
+
+
+/** Schema Mutations */
 export type MutationMakeReportArgs = {
   products: Array<Scalars['Int']>;
+};
+
+
+/** Schema Mutations */
+export type MutationTransferProductsArgs = {
+  productTransferId: Scalars['Int'];
+};
+
+
+/** Schema Mutations */
+export type MutationReceiveProductsArgs = {
+  productTransferId: Scalars['Int'];
+};
+
+export type Order = IdentifiableWithInt & {
+   __typename?: 'Order';
+  id: Scalars['Int'];
+  count: Scalars['Int'];
+  orderedBy: Scalars['String'];
+  product: Product;
 };
 
 export type OrderArg = {
@@ -106,24 +197,50 @@ export type Product = IdentifiableWithInt & {
   recipe: Recipe;
 };
 
+export type ProductTransfer = IdentifiableWithInt & {
+   __typename?: 'ProductTransfer';
+  id: Scalars['Int'];
+  status: ProductTransferStatus;
+  products: Array<Product>;
+};
+
+export enum ProductTransferStatus {
+  Stored = 'Stored',
+  Transfer = 'Transfer',
+  Produced = 'Produced'
+}
+
 /** Schema Queries */
 export type Query = {
    __typename?: 'Query';
   loggedIn: Scalars['Boolean'];
   currentUser?: Maybe<User>;
   user?: Maybe<User>;
-  searchKnowledge: Array<Knowledge>;
-  getKnowledge: Knowledge;
+  allUsers: Array<User>;
   ingredient: Ingredient;
   allIngredients: Array<Ingredient>;
+  searchKnowledge: Array<Knowledge>;
+  getKnowledge: Knowledge;
+  order: Order;
+  orders: Array<Order>;
   product: Product;
   allProducts: Array<Product>;
+  recipe: Recipe;
+  allRecipes: Array<Recipe>;
+  request: IngredientRequest;
+  report: ProductTransfer;
 };
 
 
 /** Schema Queries */
 export type QueryUserArgs = {
   id: Scalars['String'];
+};
+
+
+/** Schema Queries */
+export type QueryIngredientArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -142,7 +259,7 @@ export type QueryGetKnowledgeArgs = {
 
 
 /** Schema Queries */
-export type QueryIngredientArgs = {
+export type QueryOrderArgs = {
   id: Scalars['Int'];
 };
 
@@ -152,12 +269,36 @@ export type QueryProductArgs = {
   id: Scalars['Int'];
 };
 
+
+/** Schema Queries */
+export type QueryRecipeArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** Schema Queries */
+export type QueryRequestArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** Schema Queries */
+export type QueryReportArgs = {
+  id: Scalars['Int'];
+};
+
 export type Recipe = IdentifiableWithInt & {
    __typename?: 'Recipe';
   id: Scalars['Int'];
   name: Scalars['String'];
   description: Scalars['String'];
   ingredients: Array<Ingredient>;
+};
+
+export type RecipeArg = {
+  name: Scalars['String'];
+  description: Scalars['String'];
+  ingredients: Array<Scalars['Int']>;
 };
 
 export type RequestArg = {
@@ -173,14 +314,51 @@ export type User = IdentifiableWithString & {
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
   role: UserRole;
+  status: UserStatus;
+};
+
+export type UserChange = {
+  password?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+};
+
+/** User Edit Argument */
+export type UserEdit = {
+  id: Scalars['String'];
+  password: Scalars['String'];
+  name: Scalars['String'];
+  email: Scalars['String'];
+  phone?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  role: Scalars['String'];
+  status: Scalars['String'];
 };
 
 export enum UserRole {
   WarehouseManager = 'WarehouseManager',
   WorkshopManager = 'WorkshopManager',
-  Client = 'Client',
   Fairy = 'Fairy',
+  Client = 'Client',
   Admin = 'Admin'
+}
+
+/** User Signup Argument */
+export type UserSignup = {
+  id: Scalars['String'];
+  password: Scalars['String'];
+  name: Scalars['String'];
+  email: Scalars['String'];
+  phone?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+};
+
+export enum UserStatus {
+  Deactivated = 'Deactivated',
+  Active = 'Active',
+  Verification = 'Verification'
 }
 
 
