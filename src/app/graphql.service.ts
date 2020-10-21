@@ -158,6 +158,7 @@ export class GraphqlService {
           }
         }`
     })
+    .valueChanges.pipe(map(r => r.data['user']));
   }
 
   updateUserOwnProfile(user: any) {
