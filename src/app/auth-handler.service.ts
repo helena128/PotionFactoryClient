@@ -15,4 +15,9 @@ export class AuthHandlerService {
       this.router.navigate(['not-found']);
     }
   }
+
+  public checkRole(acceptedRoles: UserRole[]): void {
+    const userRole = localStorage.getItem('userRole') as UserRole;
+    this.checkRoles(userRole, acceptedRoles);
+  }
 }
