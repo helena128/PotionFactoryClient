@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {GraphqlService} from "../graphql.service";
-import {Product} from "../api-types";
+import {Product, UserRole} from "../api-types";
+import {AuthHandlerService} from "../auth-handler.service";
 
 @Component({
   selector: 'app-product-list',
@@ -10,11 +11,14 @@ import {Product} from "../api-types";
 })
 export class ProductListComponent implements OnInit {
 
+  ACCEPTABLE_ROLES = [UserRole.Client];
   productList: Product[];
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: GraphqlService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private service: GraphqlService,
+              private authHandler: AuthHandlerService) { }
 
   ngOnInit(): void {
+    this.authHandler.checkRole(this.ACCEPTABLE_ROLES);
     this.service.searchProducts(10).subscribe((data) => this.productList = data);
   }
 

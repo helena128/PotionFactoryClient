@@ -21,6 +21,8 @@ export class MainPageComponent implements OnInit {
     switch (role) {
       case UserRole.Client:
         return 'orders';
+      case UserRole.Fairy:
+        return 'books';
       default:
         return 'login';
     }
