@@ -9,7 +9,7 @@
     <div style="display: flex; margin-top: 20px">
       <input type="email" class="form-control" placeholder="Email" style="margin-right: 10px"
              [disabled]="!isCreateProfile && !isRegister"
-             [defaultValue]="isCreateProfile ? '': user.email"/>
+             [defaultValue]="isCreateProfile ? '': user.id"/>
       <input type="password" class="form-control" placeholder="Password" [(ngModel)]="isCreateProfile ? '' : user.password"
       [hidden]="!isCreateProfile && !isEditCurrentProfile && !isRegister"/>
     </div>

@@ -310,7 +310,6 @@ export type User = IdentifiableWithString & {
    __typename?: 'User';
   id: Scalars['String'];
   name: Scalars['String'];
-  email: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
   role: UserRole;
@@ -320,7 +319,6 @@ export type User = IdentifiableWithString & {
 export type UserChange = {
   password?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
 };
@@ -330,7 +328,6 @@ export type UserEdit = {
   id: Scalars['String'];
   password: Scalars['String'];
   name: Scalars['String'];
-  email: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
   role: Scalars['String'];
@@ -350,7 +347,6 @@ export type UserSignup = {
   id: Scalars['String'];
   password: Scalars['String'];
   name: Scalars['String'];
-  email: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
 };

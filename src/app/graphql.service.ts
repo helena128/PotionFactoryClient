@@ -25,7 +25,7 @@ export class GraphqlService {
 
   currentUser(): Observable<api.Query['currentUser']> {
     return this.apollo
-      .watchQuery<api.Query['currentUser']>({query: gql`{currentUser { id name email phone address }}`})
+      .watchQuery<api.Query['currentUser']>({query: gql`{currentUser { id name phone address }}`})
       .valueChanges.pipe(map(r => r.data['currentUser']))
   }
 
@@ -150,7 +150,6 @@ export class GraphqlService {
           user(id: $id) {
             id
             name
-            email
             phone
             address
             role
@@ -166,7 +165,7 @@ export class GraphqlService {
       mutation: gql`
         mutation UpdateUserSelf($user: UserChange!) {
           updateUserSelf(user: $user) {
-            name phone address email
+            name phone address
           }
         }
       `,
