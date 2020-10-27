@@ -42,8 +42,7 @@ export class ProductDetailsComponent implements OnInit {
     var count = Number.parseInt(this.countForm.controls['countControl'].value);
 
     var order = {
-      orderedBy: 'client',
-      product: 1,
+      product: this.id,
       count: count
     } as MutationCreateOrderArgs['order'];
 
