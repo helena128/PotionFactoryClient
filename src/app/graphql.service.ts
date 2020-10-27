@@ -195,7 +195,7 @@ export class GraphqlService {
   }
 
   getOrders(): Observable<api.Query['orders']> {
-    return this.watchQuery('orders', {query: gql` { orders {id count product {name}} }`})
+    return this.watchQuery('orders', {query: gql` { orders {id count product {name}} }`, fetchPolicy: 'no-cache'});
   }
 
   userById(id: string): Observable<api.Query['user']> {

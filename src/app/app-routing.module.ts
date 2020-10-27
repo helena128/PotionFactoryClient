@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {MainPageComponent} from "./main-page/main-page.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {ProductListComponent} from "./product-list/product-list.component";
 import {ProductDetailsComponent} from "./product-details/product-details.component";
 import {SearchBooksComponent} from "./search-books/search-books.component";
@@ -22,67 +21,61 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: MainPageComponent,
-    children: [
-      {
-        path: 'products', component: ProductListComponent
-      },
-      {
-        path: 'products/:id', component: ProductDetailsComponent
-      },
-      {
-        path: 'books', component: SearchBooksComponent
-      },
-      {
-        path: 'books/:id', component: BookContentComponent
-      },
-      {
-        path: 'ingredients/request', component: IngredientsRequestComponent
-      },
-      {
-        path: 'ingredients', component: IngredientsListComponentComponent
-      },
-      {
-        path: 'ingredients/:id', component: IngredientDetailsComponent
-      },
-      {
-        path: 'report', component: ManufactureReportComponent
-      },
-      {
-        path: 'users/:id', component: EditProfileComponent
-      },
-      {
-        path: 'users', component: UserListComponent
-      },
-      {
-        path: 'transfer', component: ReportListComponent
-      },
-      {
-        path: 'recipes/new', component: RecipeFormComponent, pathMatch: 'full'
-      },
-      {
-        path: 'recipes/:id', component: RecipeDetailsComponent
-      },
-      {
-        path: 'recipes', component: RecipeListComponent
-      },
-      {
-        path: 'settings', component: EditProfileComponent
-      },
-      {
-        path: 'register', component: EditProfileComponent
-      },
-      {
-        path: 'orders', component: OrderListComponent
-      },
-      {
-        path: 'not-found', component: NotFoundComponent
-      }
-    ]
+    path: 'products', component: ProductListComponent
   },
   {
-        path: 'login', component: LoginFormComponent
+    path: 'products/:id', component: ProductDetailsComponent
+  },
+  {
+    path: 'books', component: SearchBooksComponent
+  },
+  {
+    path: 'books/:id', component: BookContentComponent
+  },
+  {
+    path: 'ingredients/request', component: IngredientsRequestComponent
+  },
+  {
+    path: 'ingredients', component: IngredientsListComponentComponent
+  },
+  {
+    path: 'ingredients/:id', component: IngredientDetailsComponent
+  },
+  {
+    path: 'report', component: ManufactureReportComponent
+  },
+  {
+    path: 'users/:id', component: EditProfileComponent
+  },
+  {
+    path: 'users', component: UserListComponent
+  },
+  {
+    path: 'transfer', component: ReportListComponent
+  },
+  {
+    path: 'recipes/new', component: RecipeFormComponent, pathMatch: 'full'
+  },
+  {
+    path: 'recipes/:id', component: RecipeDetailsComponent
+  },
+  {
+    path: 'recipes', component: RecipeListComponent
+  },
+  {
+    path: 'settings', component: EditProfileComponent
+  },
+  {
+    path: 'register', component: EditProfileComponent
+  },
+  {
+    path: 'orders', component: OrderListComponent, runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'not-found', component: NotFoundComponent
+  },
+  {
+    path: 'login', component: LoginFormComponent
   },
   {
     path: '**',
@@ -95,4 +88,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
