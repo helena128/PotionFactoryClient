@@ -36,8 +36,6 @@ export class GraphqlService {
   private errorHandler<T>(defaultValue: T | null = null) {
     return mergeMap((r: ApolloQueryResult<T> | FetchResult<T>): ObservableInput<ApolloQueryResult<T> | FetchResult<T>> =>
       {
-        console.log(r)
-
         var errors = [];
         var promise;
 
