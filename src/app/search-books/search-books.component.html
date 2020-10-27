@@ -20,7 +20,7 @@
       <button class="btn btn-info">View more</button>
     </div>
   </div>
-  <div style="margin-top: 30px;" *ngIf="(results | async).length == 0">
+  <div style="margin-top: 30px;" *ngIf="(results | async)?.length == 0">
     No content was found. Please, rephrase
   </div>
 </div>
