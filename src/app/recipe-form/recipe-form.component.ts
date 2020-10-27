@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Ingredient} from "../api-types";
+import {GraphqlService} from "../graphql.service";
 
 @Component({
   selector: 'app-recipe-form',
@@ -10,19 +11,10 @@ export class RecipeFormComponent implements OnInit {
 
   ingredientList: any[];
 
-  constructor() { }
+  constructor(private graphQlService: GraphqlService) { }
 
   ngOnInit(): void {
-    this.ingredientList = [
-      {
-        id: 1,
-        name: 'Ingredient1'
-      },
-      {
-        id: 2,
-        name: 'Ingredient2'
-      }
-    ];
+    this.graphQlService.getAllIngredients().subscribe(data => this.ingredientList = data);
   }
 
 }

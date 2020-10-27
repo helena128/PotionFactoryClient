@@ -31,11 +31,11 @@ import {FetchResult} from "apollo-link";
 export class GraphqlService {
   constructor(private apollo: Apollo,
               private toastr: ToastrService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   private errorHandler<T>(defaultValue: T | null = null) {
-    return mergeMap((r: ApolloQueryResult<T> | FetchResult<T>): ObservableInput<ApolloQueryResult<T> | FetchResult<T>> =>
-      {
+    return mergeMap((r: ApolloQueryResult<T> | FetchResult<T>): ObservableInput<ApolloQueryResult<T> | FetchResult<T>> => {
         var errors = [];
         var promise;
 
@@ -52,7 +52,7 @@ export class GraphqlService {
               case 'DB_ERROR':
               case 'SERVER_ERROR':
                 errors.push(e);
-                // FALLTHROUGH
+              // FALLTHROUGH
               case 'BAD_USER_INPUT':
                 this.toastr.error(msg)
                 break;
@@ -106,19 +106,20 @@ export class GraphqlService {
 
   login(credentials: Credentials): Observable<api.Mutation['login']> {
     return this.mutate('login', {
-        mutation: gql`
-          mutation Login($creds: Credentials!) {
-            login(credentials: $creds) {
-              id name role
-            }
-          }`,
-        variables: {creds: credentials}})
+      mutation: gql`
+        mutation Login($creds: Credentials!) {
+          login(credentials: $creds) {
+            id name role
+          }
+        }`,
+      variables: {creds: credentials}
+    })
   }
 
   logout(): Observable<api.Mutation['logout']> {
     return this.mutate('logout', {
-        mutation: gql`mutation Logout { logout }`
-      })
+      mutation: gql`mutation Logout { logout }`
+    })
   }
 
   getAllIngredients(): Observable<api.Query['allIngredients']> {
@@ -134,13 +135,13 @@ export class GraphqlService {
 
   getBook(id: Number): Observable<api.Query['getKnowledge']> {
     return this.watchQuery('getKnowledge', {
-        query: gql`query GetKnowledge($id: Int!){ getKnowledge(id: $id) {id name kind content}}`,
-        variables: {id: id}
-      })
+      query: gql`query GetKnowledge($id: Int!){ getKnowledge(id: $id) {id name kind content}}`,
+      variables: {id: id}
+    })
   }
 
   searchProducts(limit: number = 10): Observable<api.Query['allProducts']> {
-    return this.watchQuery('allProducts',  {
+    return this.watchQuery('allProducts', {
       query: GET_ALL_PRODUCTS
     })
   }
@@ -148,11 +149,11 @@ export class GraphqlService {
   getProductDetails(id: number): Observable<api.Query['product']> {
     return this.watchQuery('product', {
       query: gql`
-      query GetProductDetails($id: Int!) {
-        product(id: $id) {
-          id name tags description
+        query GetProductDetails($id: Int!) {
+          product(id: $id) {
+            id name tags description
+          }
         }
-      }
       `,
       variables: {id: id}
     })
@@ -161,7 +162,7 @@ export class GraphqlService {
   getIngredientById(id: number): Observable<api.Query['ingredient']> {
     return this.watchQuery('ingredient', {
       query: GET_INGREDIENT_BY_ID,
-      variables: { id: id }
+      variables: {id: id}
     })
   }
 
@@ -179,17 +180,17 @@ export class GraphqlService {
     return this.mutate('requestIngredient', {
       mutation: gql` mutation RequestIngredient($request: RequestArg!) {
         requestIngredient(request: $request) }`,
-      variables: { request: irequest }
+      variables: {request: irequest}
     })
   }
 
   createReportRequest(reportRequest: number[]): Observable<any> {
     return this.mutate('makeReport', {
       mutation: gql`
-      mutation MakeReport($products: [Int!]!) {
-        makeReport(products: $products)
-      }`,
-      variables: { products: reportRequest }
+        mutation MakeReport($products: [Int!]!) {
+          makeReport(products: $products)
+        }`,
+      variables: {products: reportRequest}
     })
   }
 
@@ -224,5 +225,16 @@ export class GraphqlService {
       `,
       variables: {user: user}
     })
+  }
+
+  getIngredients(): Observable<api.Query['allIngredients']> {
+    return this.watchQuery('allIngredients', {
+      query: gql`
+        allIngredients {
+        id
+        name
+        }
+      `
+    });
   }
 }
