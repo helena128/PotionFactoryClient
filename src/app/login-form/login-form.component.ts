@@ -25,7 +25,7 @@ export class LoginFormComponent implements OnInit {
     // redirect to home if already logged in
 
     api.loggedIn()
-      .subscribe(v => {this.openPageForRole()})
+      .subscribe(v => { if (v) this.openPageForRole() })
   }
 
   openPageForRole() {
