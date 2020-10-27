@@ -14,7 +14,8 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
     const userRole =  localStorage.getItem('userRole') as UserRole;
     console.log( localStorage.getItem('userRole'));
-    this.router.navigate([this.getHomePageByRole(userRole)]);
+    // TODO: only if clicked 'home'
+    //this.router.navigate([this.getHomePageByRole(userRole)]);
   }
 
   private getHomePageByRole(role: UserRole): string {
