@@ -12,7 +12,21 @@ export function createApollo(httpLink: HttpLink) {
       withCredentials: true
     }),
     cache: new InMemoryCache(),
-    credentials: 'include'
+    credentials: 'include',
+    defaultOptions: {
+      query: {
+        // fetchPolicy: 'no-cache',
+        errorPolicy: 'all'
+      },
+      watchQuery: {
+        // fetchPolicy: 'no-cache',
+        errorPolicy: 'all'
+      },
+      mutate: {
+        // fetchPolicy: 'no-cache',
+        errorPolicy: 'all'
+      },
+    }
   };
 }
 
