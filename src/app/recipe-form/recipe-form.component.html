@@ -3,20 +3,24 @@
   <div>
     <h6>Chose ingredients:</h6>
   </div>
-  <div *ngFor="let ingr of ingredientList; let last = last; let index = index"
+  <div *ngFor="let ingr of chosenIngredients; let last = last; let index = index"
        style="display: flex; align-items: center; justify-content: center; margin-top: 10px;">
     <div class="row-elem">
-      <input type="search" [value]="ingr.name" class="form-control" *ngIf="!last" disabled/>
-      <input type="search" #name class="form-control" *ngIf="last"/>
+      <input type="search" [value]="ingr" class="form-control" *ngIf="!last" disabled/>
+      <form [formGroup]="userRoleGroup" *ngIf="last">
+        <select formControlName="userRoleControl" class="custom-select" (ngModelChange)="handleCurrentIngredientChange($event)">
+          <option [value]="role" *ngFor="let role of availableIngredients">{{role}}</option>
+        </select>
+      </form>
     </div>
 
     <div class="row-elem" style="margin-left: 10px !important;">
-      <button *ngIf="last" class="btn btn-info" ><i class="fa fa-plus"></i> </button>
-      <button *ngIf="!last" class="btn btn-info" ><i class="fa fa-minus"></i> </button>
+      <button *ngIf="last || ingr === ''" class="btn btn-info" (click)="add()" ><i class="fa fa-plus"></i> </button>
+      <button *ngIf="!last" class="btn btn-info" (click)="remove(index)" ><i class="fa fa-minus"></i> </button>
     </div>
   </div>
   <div class="form-group" style="margin-top: 30px;">
-    <input type="text" class="form-control" placeholder="Enter recipe description" style="min-height: 60px">
+    <input type="text" class="form-control" [(ngModel)]="description" placeholder="Enter recipe description" style="min-height: 60px">
   </div>
   <div style="margin-top: 10px;" class="submit-btn">
     <button class="btn btn-warning" >Create recipe</button>
