@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Ingredient, Recipe} from "../api-types";
+import {Ingredient, Recipe, UserRole} from "../api-types";
 import {GraphqlService} from "../graphql.service";
 
 @Component({
@@ -22,4 +22,7 @@ export class RecipeListComponent implements OnInit {
     return ingredientList ? ingredientList.map(ingr => ingr.name).slice(0, 2).join(', ') : '';
   }
 
+  canCreateRecipe(): boolean {
+    return localStorage.getItem('userRole') === UserRole.Fairy;
+  }
 }

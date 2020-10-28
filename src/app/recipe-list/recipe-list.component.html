@@ -2,7 +2,7 @@
   <div style="display: flex; justify-content: space-between">
     <div style="font-size: 32px; margin: 30px 0">Recipes</div>
     <div style="font-size: 32px; margin: 30px 0">
-      <button class="btn btn-info" [routerLink]="['/recipes/new']">Create recipe</button>
+      <button class="btn btn-info" [routerLink]="['/recipes/new']" *ngIf="canCreateRecipe()">Create recipe</button>
     </div>
   </div>
   <div>
