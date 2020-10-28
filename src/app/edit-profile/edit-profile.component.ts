@@ -76,11 +76,15 @@ export class EditProfileComponent implements OnInit {
 
   public saveChanges(): void {
     if (this.isEditCurrentProfile) {
-      this.graphqlService.updateUserOwnProfile({
-        password: this.user.password,
+      const updatedUser = {
         address: this.user.address,
         phone: this.user.phone
-      }).subscribe(data => this.user = data);
+      };
+      if (this.user.password && this.user.password?.length > 0) {
+        updatedUser.password = this.user.password;
+      }
+      console.debug('Updated user: ', updatedUser);
+      this.graphqlService.updateUserOwnProfile(updatedUser).subscribe(data => this.user = data);
     } else if (this.isRegister) {
       const newUser = {
         id: this.user.id,

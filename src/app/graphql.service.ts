@@ -219,7 +219,7 @@ export class GraphqlService {
       mutation: gql`
         mutation UpdateUserSelf($user: UserChange!) {
           updateUserSelf(user: $user) {
-            name phone address
+            id name phone address
           }
         }
       `,
