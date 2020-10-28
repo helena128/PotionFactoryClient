@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GraphqlService} from "../graphql.service";
+import {UserRole} from "../api-types";
 
 @Component({
   selector: 'app-report-list',
@@ -25,6 +26,10 @@ export class ReportListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
+  isWarehouseManager(): boolean {
+    return localStorage.getItem('userRole') === UserRole.WorkshopManager;
+  }
 }

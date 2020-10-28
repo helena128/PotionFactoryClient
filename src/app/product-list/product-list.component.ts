@@ -11,7 +11,7 @@ import {AuthHandlerService} from "../auth-handler.service";
 })
 export class ProductListComponent implements OnInit {
 
-  ACCEPTABLE_ROLES = [UserRole.Client];
+  ACCEPTABLE_ROLES = [UserRole.Client, UserRole.WorkshopManager];
   productList: Product[];
 
   constructor(private router: Router, private route: ActivatedRoute, private service: GraphqlService,

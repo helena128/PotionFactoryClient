@@ -1,5 +1,10 @@
 <div class="container" *ngIf="transferList">
-  <div style="font-size: 32px; margin: 30px 0;">Product Transfer</div>
+  <div style="display: flex; justify-content: space-between">
+    <div style="font-size: 32px; margin: 30px 0">Transfer reports</div>
+    <div style="font-size: 32px; margin: 30px 0" *ngIf="isWarehouseManager()">
+      <button class="btn btn-info" [routerLink]="['/report']">New transfer report</button>
+    </div>
+  </div>
   <div>
     <mat-accordion *ngFor="let item of transferList">
       <mat-expansion-panel style="margin-top: 20px">

@@ -16,7 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   public UserRoles = UserRole;
   public product: Product;
   private id: number;
-  private ACCEPTED_ROLES = [UserRole.Client];
+  private ACCEPTED_ROLES = [UserRole.Client, UserRole.WorkshopManager];
 
   countForm: FormGroup;
   amountOptions = [1, 2, 3, 4, 5];

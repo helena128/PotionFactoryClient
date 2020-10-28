@@ -29,7 +29,6 @@ export class IngredientsListComponentComponent implements OnInit {
         ingredientNames: ['ingredient1', 'ingredient1', 'ingredient2']
       }
     ];
-    console.log('INIT');
   }
 
   public isWorkshopOperator(): boolean {

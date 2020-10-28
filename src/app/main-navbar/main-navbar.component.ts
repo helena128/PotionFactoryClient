@@ -92,7 +92,7 @@ export class MainNavbarComponent implements OnInit {
             name: 'Ingredient request', link: 'ingredients'
           },
           {
-            name: 'Product Transfer', link: 'report'
+            name: 'Product Transfer', link: 'transfer'
           },
           {
             name: 'Products', link: 'products'
