@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserRole} from "../api-types";
+import {User} from "../api-types";
+import {GraphqlService} from "../graphql.service";
 
 @Component({
   selector: 'app-user-list',
@@ -8,38 +9,13 @@ import {UserRole} from "../api-types";
 })
 export class UserListComponent implements OnInit {
 
-  profileList = [{
-    id: 1,
-    userName: 'John Smith',
-    email: 'johnsmith@yandex.ru',
-    password: 'Password123!',
-    address: '2 Yellowstone Str, Twin Peaks, Washington',
-    phone: '+1 (999) 0051578',
-    role: UserRole.WarehouseManager
-  },
-    {
-      id: 2,
-      userName: 'Fairy Godmother',
-      email: 'fairy@farfaraway.com',
-      password: 'Password123!',
-      address: '2 Yellowstone Str, Far-away Land',
-      phone: '+1 (999) 0051578',
-      role: UserRole.Fairy
-    },
-    {
-      id: 3,
-      userName: 'John Doe',
-      email: 'johndoe@yandex.ru',
-      password: 'Password123!',
-      address: '2 Yellowstone Str, Far-away Land',
-      phone: '+1 (999) 0051578',
-      role: UserRole.Client
-    }]
+  userList: User[];
 
-  constructor() {
+  constructor(private graphQlService: GraphqlService) {
   }
 
   ngOnInit(): void {
+    this.graphQlService.getUsers().subscribe(data => this.userList = data);
   }
 
 }

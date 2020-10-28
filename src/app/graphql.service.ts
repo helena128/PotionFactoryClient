@@ -269,11 +269,37 @@ export class GraphqlService {
       mutation: gql`
         mutation signup($user: userSignup!) {
           signup(user: $user) {
-            id name password phone address
+            id name phone address
           }
         }
       `,
       variables: {user : user}
+    });
+  }
+
+  getUsers(): Observable<api.Query['allUsers']> {
+    return this.watchQuery('allUsers', {
+      query: gql`
+        {
+          allUsers {
+            id name role
+          }
+        }
+      `,
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  createUser(user: any): Observable<api.Mutation['createUser']> {
+    return  this.mutate('createUser', {
+      mutation: gql`
+          mutation CreateUser($user: userEdit!) {
+          createUser(user: $user) {
+            id
+          }
+        }
+      `,
+      variables: {user: user}
     });
   }
 }

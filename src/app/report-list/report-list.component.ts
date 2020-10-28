@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {GraphqlService} from "../graphql.service";
 
 @Component({
   selector: 'app-report-list',
@@ -20,7 +21,7 @@ export class ReportListComponent implements OnInit {
     }
   ];
 
-  constructor() {
+  constructor(private graphqlService: GraphqlService) {
   }
 
   ngOnInit(): void {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IngredientRequestItem} from "../model/ingredient-request-item";
 import {UserRole} from "../api-types";
+import {GraphqlService} from "../graphql.service";
 
 @Component({
   selector: 'app-ingredients-list-component',
@@ -13,7 +14,7 @@ export class IngredientsListComponentComponent implements OnInit {
 
   userRole = UserRole.WorkshopManager;
 
-  constructor() { }
+  constructor(private graphqlService: GraphqlService) { }
 
   ngOnInit(): void {
     this.ingredientRequestList = [

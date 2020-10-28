@@ -33,12 +33,12 @@ export class LoginFormComponent implements OnInit {
     var route;
 
     switch (role) {
-      case null: route = ['login']; break
-      case UserRole.Client: route = ['products']; break
-      case UserRole.Fairy: route = ['books']; break
-      case UserRole.Admin: throw "Not implemented"
-      case UserRole.WorkshopManager: route = ['ingredients']; break
-      case UserRole.WarehouseManager: throw "Not Implemented"; break
+      case null: route = ['login']; break;
+      case UserRole.Client: route = ['products']; break;
+      case UserRole.Fairy: route = ['books']; break;
+      case UserRole.Admin: route = ['users']; break;
+      case UserRole.WorkshopManager: route = ['ingredients']; break;
+      case UserRole.WarehouseManager: route = ['ingredients']; break;
       default: throw "Unknown role " + role
     }
 

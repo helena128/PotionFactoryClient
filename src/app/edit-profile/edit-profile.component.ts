@@ -38,11 +38,13 @@ export class EditProfileComponent implements OnInit {
 
     this.isEditCurrentProfile = (this.router.url === '/settings');
     this.isRegister = this.router.url === '/register';
+    this.isCreateProfile = (this.route.snapshot.paramMap.get('id') === 'new' && this.userRole === UserRole.Admin);
 
+    console.debug('isCreateProfile: ', this.isCreateProfile);
     // init user
     if (this.isEditCurrentProfile) {
       this.graphqlService.currentUser().subscribe(data => this.user = data); // TODO: fix this
-    } else if (this.isRegister) {
+    } else if (this.isRegister || this.isCreateProfile) {
       this.user = {name: '', password: '', address: '', phone: '', id: ''};
     }
   }
@@ -95,6 +97,17 @@ export class EditProfileComponent implements OnInit {
       };
       console.debug(newUser);
       this.graphqlService.register(newUser).subscribe(data => this.toasterService.success('Registered new user ', (data as User)?.id));
+    } else if (this.isCreateProfile) {
+      const newUser = {
+        id: this.user.id,
+        password: this.user.password,
+        name: this.user.name,
+        phone: this.user.phone,
+        address: this.user.address,
+        role: 'CLIENT'//this.userRoleGroup.value.userRoleControl as UserRole
+      };
+      console.debug(newUser.role);
+      this.graphqlService.createUser(newUser).subscribe(data => this.toasterService.success('User was created, email: ', (data as User)?.id));
     }
   }
 
