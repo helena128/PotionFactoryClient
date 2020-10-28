@@ -229,11 +229,12 @@ export class GraphqlService {
 
   getIngredients(): Observable<api.Query['allIngredients']> {
     return this.watchQuery('allIngredients', {
-      query: gql`
+      query: gql`{
         allIngredients {
-        id
-        name
+          id
+          name
         }
+      }
       `
     });
   }
@@ -248,6 +249,18 @@ export class GraphqlService {
       }
       `,
       variables: {recipe: recipe}
+    });
+  }
+
+  getAllRecipes(): Observable<api.Query['allRecipes']> {
+    return this.watchQuery('allRecipes', {
+      query: gql`{
+        allRecipes {
+          id name ingredients { name }
+        }
+      }
+      `,
+      fetchPolicy: 'no-cache'
     });
   }
 }

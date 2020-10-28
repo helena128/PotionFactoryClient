@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Ingredient, Recipe} from "../api-types";
+import {GraphqlService} from "../graphql.service";
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,25 +12,14 @@ export class RecipeListComponent implements OnInit {
   recipes: Recipe[];
   createRecipeButtonCaption = 'Create recipe';
 
-  constructor() { }
+  constructor(private graphQlService: GraphqlService) { }
 
   ngOnInit(): void {
-    this.recipes = [
-      {
-        id: 1,
-        name: 'Everlasting Love',
-        ingredients: [
-          {
-            id: 2,
-            name: 'Ingredient1'
-          } as Ingredient,
-          {
-            id: 2,
-            name: 'Ingredient2'
-          } as Ingredient
-        ]
-      } as Recipe
-    ];
+    this.graphQlService.getAllRecipes().subscribe(data => this.recipes = data);
+  }
+
+  getIngredients(ingredientList: Ingredient[]): string {
+    return ingredientList ? ingredientList.map(ingr => ingr.name).slice(0, 2).join(', ') : '';
   }
 
 }
