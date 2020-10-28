@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserRole} from "../api-types";
+import {User, UserRole} from "../api-types";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {GraphqlService} from "../graphql.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-edit-profile',
@@ -18,7 +19,11 @@ export class EditProfileComponent implements OnInit {
   user: any;
   userRole: UserRole;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router, private graphqlService: GraphqlService) { }
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private router: Router,
+              private graphqlService: GraphqlService,
+              private toasterService: ToastrService) { }
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole') as UserRole;
@@ -37,6 +42,8 @@ export class EditProfileComponent implements OnInit {
     // init user
     if (this.isEditCurrentProfile) {
       this.graphqlService.currentUser().subscribe(data => this.user = data); // TODO: fix this
+    } else if (this.isRegister) {
+      this.user = {name: '', password: '', address: '', phone: '', id: ''};
     }
   }
 
@@ -68,11 +75,23 @@ export class EditProfileComponent implements OnInit {
   }
 
   public saveChanges(): void {
-    this.graphqlService.updateUserOwnProfile({
-      password: this.user.password,
-      address: this.user.address,
-      phone: this.user.phone
-    }).subscribe(data => this.user = data);
+    if (this.isEditCurrentProfile) {
+      this.graphqlService.updateUserOwnProfile({
+        password: this.user.password,
+        address: this.user.address,
+        phone: this.user.phone
+      }).subscribe(data => this.user = data);
+    } else if (this.isRegister) {
+      const newUser = {
+        id: this.user.id,
+        password: this.user.password,
+        name: this.user.name,
+        phone: this.user.phone,
+        address: this.user.address
+      };
+      console.debug(newUser);
+      this.graphqlService.register(newUser).subscribe(data => this.toasterService.success('Registered new user ', (data as User)?.id));
+    }
   }
 
 }

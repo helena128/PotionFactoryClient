@@ -263,4 +263,17 @@ export class GraphqlService {
       fetchPolicy: 'no-cache'
     });
   }
+
+  register(user: any): Observable<api.Mutation['signup']> {
+    return this.mutate('signup', {
+      mutation: gql`
+        mutation signup($user: userSignup!) {
+          signup(user: $user) {
+            id name password phone address
+          }
+        }
+      `,
+      variables: {user : user}
+    });
+  }
 }
