@@ -6,7 +6,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {from, NEVER, Observable, ObservableInput, of, Subject} from 'rxjs';
 import {flatMap, map, mergeMap, publish, share, take} from 'rxjs/operators';
-import {Credentials, Knowledge, Mutation, MutationCreateOrderArgs, OrderArg, RequestArg} from "./api-types";
+import {Credentials, Knowledge, Mutation, MutationCreateOrderArgs, OrderArg, RecipeArg, RequestArg} from "./api-types";
 import {ToastrService} from "ngx-toastr";
 import {
   CREATE_ORDER_REQUEST,
@@ -235,6 +235,19 @@ export class GraphqlService {
         name
         }
       `
+    });
+  }
+
+  createRecipe(recipe: any): Observable<api.Mutation['createRecipe']> {
+    return this.mutate('createRecipe', {
+      mutation: gql`
+      mutation CreateRecipe($recipe: RecipeArg!) {
+        createRecipe(recipe: $recipe) {
+          name description ingredients { id }
+        }
+      }
+      `,
+      variables: {recipe: recipe}
     });
   }
 }

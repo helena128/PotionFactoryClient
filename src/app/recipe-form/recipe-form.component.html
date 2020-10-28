@@ -1,5 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="!!this.availableIngredients">
   <div class="header">Create recipe</div>
+  <div>
+    <input type="text" [(ngModel)]="recipeName" class="form-control" placeholder="Enter recipe name" style="margin-bottom: 20px" />
+  </div>
   <div>
     <h6>Chose ingredients:</h6>
   </div>
@@ -23,6 +26,6 @@
     <input type="text" class="form-control" [(ngModel)]="description" placeholder="Enter recipe description" style="min-height: 60px">
   </div>
   <div style="margin-top: 10px;" class="submit-btn">
-    <button class="btn btn-warning" >Create recipe</button>
+    <button class="btn btn-warning" (click)="createRecipe()" >Create recipe</button>
   </div>
 </div>
