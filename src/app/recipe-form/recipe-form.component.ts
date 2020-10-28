@@ -54,16 +54,34 @@ export class RecipeFormComponent implements OnInit {
   }
 
   createRecipe(): void {
-    // TODO: validation of input fields
     const ingredientIds = this.ingredients.filter(ingr => this.isIngredientChosen(ingr?.name)).map(ingr => ingr.id);
-    const recipeArg = {
-      name: this.recipeName,
-      description: this.description,
-      ingredients: ingredientIds
-    };
-    console.debug('Ingredient in recipes: ', ingredientIds);
-    this.graphQlService.createRecipe(recipeArg).subscribe(data =>
-      this.toasterService.success('Created recipe ' + (data as Recipe)?.name));
+    if (this.isRequestValid(ingredientIds)) {
+      const recipeArg = {
+        name: this.recipeName,
+        description: this.description,
+        ingredients: ingredientIds
+      };
+      console.debug('Ingredient in recipes: ', ingredientIds);
+      this.graphQlService.createRecipe(recipeArg).subscribe(data =>
+        this.toasterService.success('Created recipe ' + (data as Recipe)?.name));
+    }
+  }
+
+  private isRequestValid(ingredientIds: number[]): boolean {
+    var isValid = true;
+    if (!this.recipeName || this.recipeName?.length === 0) {
+      this.toasterService.error('Recipe name mustn\'t be empty');
+      isValid = false;
+    }
+    if (!this.description || this.description?.length === 0) {
+      this.toasterService.error('Description is mandatory');
+      isValid = isValid && false;
+    }
+    if (!ingredientIds || ingredientIds?.length === 0) {
+      this.toasterService.error('At least one ingredient is required');
+      isValid = isValid && false;
+    }
+    return isValid;
   }
 
   private isIngredientChosen(ingrName: string): boolean {
