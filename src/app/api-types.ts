@@ -43,6 +43,7 @@ export type IngredientRequest = IdentifiableWithInt & {
    __typename?: 'IngredientRequest';
   id: Scalars['Int'];
   status: IngredientRequestStatus;
+  createdAt: Scalars['ZonedDateTime'];
   ingredients: Array<Ingredient>;
 };
 
@@ -177,6 +178,7 @@ export type Order = IdentifiableWithInt & {
   id: Scalars['Int'];
   count: Scalars['Int'];
   orderedBy: Scalars['String'];
+  createdAt: Scalars['ZonedDateTime'];
   product: Product;
 };
 
@@ -200,6 +202,7 @@ export type ProductTransfer = IdentifiableWithInt & {
    __typename?: 'ProductTransfer';
   id: Scalars['Int'];
   status: ProductTransferStatus;
+  createdAt: Scalars['ZonedDateTime'];
   products: Array<Product>;
 };
 
@@ -331,8 +334,7 @@ export type UserEdit = {
   name: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
-  role: Scalars['String'];
-  status: Scalars['String'];
+  role: UserRole;
 };
 
 export enum UserRole {
