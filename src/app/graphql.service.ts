@@ -42,6 +42,7 @@ export class GraphqlService {
         loop:
           for (const e of (r?.errors || [])) {
             let msg = e.message
+            let body = e.extensions
             let code = e.extensions?.code
             switch (code) {
               case 'UNAUTHENTICATED':
@@ -54,7 +55,13 @@ export class GraphqlService {
                 errors.push(e);
               // FALLTHROUGH
               case 'BAD_USER_INPUT':
-                this.toastr.error(msg)
+                switch (body.kind) {
+                  case 'unique':
+                    this.toastr.error(`Already exists with ${body.column} = ${body.value}`);
+                    break
+                  default:
+                    this.toastr.error(msg)
+                }
                 break;
               default:
                 errors.push(e)

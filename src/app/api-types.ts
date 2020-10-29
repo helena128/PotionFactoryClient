@@ -183,7 +183,6 @@ export type Order = IdentifiableWithInt & {
 export type OrderArg = {
   product: Scalars['Int'];
   count: Scalars['Int'];
-  orderedBy: Scalars['String'];
 };
 
 export type Product = IdentifiableWithInt & {
@@ -228,7 +227,9 @@ export type Query = {
   recipe: Recipe;
   allRecipes: Array<Recipe>;
   request: IngredientRequest;
+  allRequests: Array<IngredientRequest>;
   report: ProductTransfer;
+  allReports: Array<ProductTransfer>;
 };
 
 
@@ -335,7 +336,9 @@ export type UserEdit = {
 };
 
 export enum UserRole {
+  WarehouseWorker = 'WarehouseWorker',
   WarehouseManager = 'WarehouseManager',
+  WorkshopWorker = 'WorkshopWorker',
   WorkshopManager = 'WorkshopManager',
   Fairy = 'Fairy',
   Client = 'Client',
