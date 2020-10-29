@@ -50,4 +50,15 @@ export class ReportListComponent implements OnInit {
     }
     return resultedList;
   }
+
+  acknowledgeArrived(item: any) {
+    this.graphqlService.receiveProducts(item?.id).subscribe(data => {
+      if (data) {
+        this.toasterService.success('Successfully updated status');
+        item.status = 'Stored';
+      } else {
+        this.toasterService.error('Error happened');
+      }
+    });
+  }
 }

@@ -28,11 +28,13 @@
             <mark>{{item.status.toUpperCase()}}</mark>
           </div>
           <div style="margin-top: 20px">
-            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
-              <button class="btn btn-success" [hidden]="!isWorkshopOperator() || item.status !== 'Transfer'" (click)="arrivedAtWorkshop(item)">Arrived at workshop</button>
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status"
+                  *ngIf="isWorkshopOperator() && item.status === 'Transfer'">
+              <button class="btn btn-success" (click)="arrivedAtWorkshop(item)">Arrived at workshop</button>
             </span>
-            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
-              <button class="btn btn-success" [hidden]="isWorkshopOperator() || item.status !== 'Open'">Start transfer</button>
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status"
+                  *ngIf="userRole === 'WarehouseManager' && item.status === 'Open'">
+              <button class="btn btn-success" (click)="startTransfer(item)">Start transfer</button>
             </span>
           </div>
         </div>

@@ -17,15 +17,17 @@ export class IngredientsListComponentComponent implements OnInit {
 
   ingredientRequestList: any[];
 
-  userRole = UserRole.WorkshopManager;
+  userRole;
 
   constructor(private graphqlService: GraphqlService, private toasterService: ToastrService) { }
 
   ngOnInit(): void {
+    this.userRole = localStorage.getItem('userRole') as UserRole;
     this.graphqlService.getIngredientRequests().subscribe(data => this.ingredientRequestList = data);
   }
 
   public isWorkshopOperator(): boolean {
+    console.debug('Current role: ', this.userRole);
     return this.userRole === UserRole.WorkshopManager;
   }
 
@@ -53,6 +55,17 @@ export class IngredientsListComponentComponent implements OnInit {
         item.status = 'Received';
       } else {
         this.toasterService.error('Couldn\'t update status');
+      }
+    });
+  }
+
+  startTransfer(item: any) {
+    this.graphqlService.transferProducts(item.id).subscribe(data => {
+      if (data) {
+        this.toasterService.success('Successfully started transfer');
+        item.status = 'Transfer';
+      } else {
+        this.toasterService.error('Couldn\'t start transfer');
       }
     });
   }

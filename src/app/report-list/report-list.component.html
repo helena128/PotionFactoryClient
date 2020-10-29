@@ -29,7 +29,7 @@
           </div>
           <div *ngIf="item.status === 'Transfer' && !isWarehouseManager()" style="margin-top: 20px">
             <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
-              <button class="btn btn-success">Arrived at warehouse</button>
+              <button class="btn btn-success" (click)="acknowledgeArrived(item)">Arrived at warehouse</button>
             </span>
           </div>
           <div *ngIf="item.status === 'Produced'" style="margin-top: 20px">

@@ -394,4 +394,15 @@ export class GraphqlService {
       variables: {id: id}
     });
   }
+
+  receiveProducts(productTransferId: number): Observable<api.Mutation['receiveProducts']> {
+    return this.mutate('receiveProducts', {
+      mutation: gql`
+        mutation ReceiveProducts($productTransferId: Int!) {
+          receiveProducts(productTransferId: $productTransferId)
+        }
+      `,
+      variables: {productTransferId: productTransferId}
+    });
+  }
 }
