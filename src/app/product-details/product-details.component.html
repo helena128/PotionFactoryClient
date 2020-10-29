@@ -9,7 +9,7 @@
       <span class="badge badge-pill badge-info" style="margin: auto 2pt; font-size: 10pt" *ngFor="let tag of product.tags">{{tag}}</span>
     </div>
     <div class="card-footer" *ngIf="userRole === UserRoles.WorkshopManager">
-      <button class="btn btn-warning">View recipe</button>
+      <button class="btn btn-warning" (click)="goToRecipe(product?.recipe?.id)">View recipe</button>
     </div>
   </div>
   <div class="card" style="margin-top: 10px" *ngIf="userRole == UserRoles.Client">

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MutationCreateOrderArgs, Product, UserRole} from "../api-types";
 import {GraphqlService} from "../graphql.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 import {AuthHandlerService} from "../auth-handler.service";
@@ -25,7 +25,8 @@ export class ProductDetailsComponent implements OnInit {
               private route: ActivatedRoute,
               private fb: FormBuilder,
               private toastr: ToastrService,
-              private authHandler: AuthHandlerService
+              private authHandler: AuthHandlerService,
+              private router: Router
               ) {}
 
   ngOnInit(): void {
@@ -53,5 +54,9 @@ export class ProductDetailsComponent implements OnInit {
         this.toastr.error("Failed to create order")
       }
     });
+  }
+
+  goToRecipe(id: number) {
+    this.router.navigate(['recipes', id]);
   }
 }

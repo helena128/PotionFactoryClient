@@ -158,7 +158,7 @@ export class GraphqlService {
       query: gql`
         query GetProductDetails($id: Int!) {
           product(id: $id) {
-            id name tags description
+            id name tags description recipe { id }
           }
         }
       `,
@@ -170,7 +170,7 @@ export class GraphqlService {
     return this.watchQuery('ingredient', {
       query: GET_INGREDIENT_BY_ID,
       variables: {id: id}
-    })
+    });
   }
 
   createOrderRequest(order: MutationCreateOrderArgs['order']): Observable<api.Mutation['createOrder']> {
@@ -379,6 +379,19 @@ export class GraphqlService {
         }
       `,
       variables: {requestId: requestId}
+    });
+  }
+
+  getRecipeById(id: number): Observable<api.Query['recipe']> {
+    return this.watchQuery('recipe', {
+      query: gql`
+        query GetRecipeById($id: Int!) {
+        recipe(id: $id) {
+          name description ingredients { name }
+        }
+        }
+      `,
+      variables: {id: id}
     });
   }
 }
