@@ -85,7 +85,7 @@ export class EditProfileComponent implements OnInit {
         phone: this.user.phone
       };
       if (this.user.password && this.user.password?.length > 0) {
-        updatedUser.password = this.user.password;
+        updatedUser['password'] = this.user.password;
       }
       console.debug('Updated user: ', updatedUser);
       this.graphqlService.updateUserOwnProfile(updatedUser).subscribe(data => this.user = data);
