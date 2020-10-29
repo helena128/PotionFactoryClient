@@ -4,7 +4,7 @@
   <div style="align-items: center; justify-content: center">
     <div style="flex: 1;">
       <input type="text" class="form-control" placeholder="User name" [(ngModel)]="user.name"
-      [disabled]="!isCreateProfile && !isRegister"/>
+      [disabled]="!isCreateProfile && !isRegister && !isEditUserProfile"/>
     </div>
     <div style="display: flex; margin-top: 20px">
       <input type="email" class="form-control" placeholder="Email" style="margin-right: 10px"
@@ -15,13 +15,13 @@
     </div>
     <div style="margin-top: 20px">
       <input type="tel" class="form-control" placeholder="Telephone" [(ngModel)]="user.phone"
-      [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister">
+      [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister && !isEditUserProfile">
     </div>
     <div style="margin-top: 20px">
       <input type="text" class="form-control" placeholder="Address" [(ngModel)]="user.address"
-      [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister">
+      [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister && !isEditUserProfile">
     </div>
-    <div style="margin-top: 20px" *ngIf="!isEditCurrentProfile && !isRegister">
+    <div style="margin-top: 20px" *ngIf="isEditUserProfile">
       <form [formGroup]="userRoleGroup">
         <select formControlName="userRoleControl" class="custom-select" (ngModelChange)="handleUserRoleChange($event)">
           <option [value]="role" *ngFor="let role of userRoles">{{role}}</option>
@@ -31,6 +31,8 @@
   </div>
   <div style="margin-top: 10px;" class="submit-btn">
     <button class="btn btn-warning" style="margin-right: 10px" (click)="saveChanges()">{{this.getSaveButtonCaption()}}</button>
-    <button class="btn btn-danger" [hidden]="isCreateProfile || isEditCurrentProfile || isRegister">Deactivate user</button>
+    <button class="btn btn-danger"
+            [hidden]="isCreateProfile || isEditCurrentProfile || isRegister || this.user?.status !== 'Active'"
+            (click)="deactivateUser()">Deactivate user</button>
   </div>
 </div>

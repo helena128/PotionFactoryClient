@@ -210,8 +210,9 @@ export class GraphqlService {
             role
             status
           }
-        }`
-    })
+        }`,
+      variables: {id: id}
+    });
   }
 
   updateUserOwnProfile(user: any) {
@@ -224,7 +225,7 @@ export class GraphqlService {
         }
       `,
       variables: {user: user}
-    })
+    });
   }
 
   getIngredients(): Observable<api.Query['allIngredients']> {
@@ -300,6 +301,30 @@ export class GraphqlService {
         }
       `,
       variables: {user: user}
+    });
+  }
+
+  updateUser(user: any): Observable<api.Mutation['updateUser']> {
+    return this.mutate('updateUser', {
+      mutation: gql`
+      mutation UpdateUser($user: userEdit!) {
+        updateUser(user: $user) {
+          id
+        }
+      }
+      `,
+      variables: {user: user}
+    });
+  }
+
+  deactivate(userId: string): Observable<api.Mutation['deactivateUser']> {
+    return this.mutate('deactivateUser', {
+      mutation: gql`
+      mutation DeactivateUser($userId: String!) {
+        deactivateUser(userId: $userId)
+      }
+      `,
+      variables: {userId: userId}
     });
   }
 }

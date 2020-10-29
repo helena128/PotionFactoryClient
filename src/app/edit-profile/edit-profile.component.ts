@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {User, UserRole} from "../api-types";
+import {User, UserRole, UserStatus} from "../api-types";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {GraphqlService} from "../graphql.service";
 import {ToastrService} from "ngx-toastr";
@@ -14,6 +14,7 @@ export class EditProfileComponent implements OnInit {
   isCreateProfile: boolean = false;
   isEditCurrentProfile: boolean = false;
   isRegister: boolean = false;
+  isEditUserProfile: boolean = false;
   userRoleGroup: FormGroup;
   userRoles = [UserRole.Client, UserRole.Admin, UserRole.Fairy, UserRole.WarehouseManager, UserRole.WorkshopManager];
   user: any;
@@ -27,10 +28,6 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole') as UserRole;
-/*    let id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    if (!id) {
-      this.isCreateProfile = true;
-    }*/
     this.userRoleGroup = this.fb.group({
       userRoleControl: [ UserRole.WarehouseManager ]
     });
@@ -39,13 +36,18 @@ export class EditProfileComponent implements OnInit {
     this.isEditCurrentProfile = (this.router.url === '/settings');
     this.isRegister = this.router.url === '/register';
     this.isCreateProfile = (this.route.snapshot.paramMap.get('id') === 'new' && this.userRole === UserRole.Admin);
+    this.isEditUserProfile = !(this.isEditCurrentProfile || this.isCreateProfile || this.isRegister) && this.userRole === UserRole.Admin;
 
     console.debug('isCreateProfile: ', this.isCreateProfile);
     // init user
     if (this.isEditCurrentProfile) {
-      this.graphqlService.currentUser().subscribe(data => this.user = data); // TODO: fix this
+      this.graphqlService.currentUser().subscribe(data => this.user = data);
     } else if (this.isRegister || this.isCreateProfile) {
       this.user = {name: '', password: '', address: '', phone: '', id: ''};
+    } else if (this.isEditUserProfile) {
+      const userId = this.route.snapshot.paramMap.get('id');
+      console.log('Retrieving data for user: ', userId);
+      this.graphqlService.userById(userId).subscribe(data => this.user = data);
     }
   }
 
@@ -104,11 +106,35 @@ export class EditProfileComponent implements OnInit {
         name: this.user.name,
         phone: this.user.phone,
         address: this.user.address,
-        role: 'CLIENT'//this.userRoleGroup.value.userRoleControl as UserRole
+        role: this.userRoleGroup.value.userRoleControl as UserRole
       };
       console.debug(newUser.role);
       this.graphqlService.createUser(newUser).subscribe(data => this.toasterService.success('User was created, email: ', (data as User)?.id));
+    } else if (this.isEditUserProfile) {
+      console.debug('Updating user with id: ', this.user.id);
+      const updatedUser = {
+        id: this.user.id,
+        name: this.user.name,
+        phone: this.user.phone,
+        address: this.user.address,
+        role: this.userRoleGroup.value.userRoleControl as UserRole
+      };
+      this.graphqlService.updateUser(updatedUser).subscribe(data => this.toasterService.success('User with email ' + (data as User)?.id + ' was updated'));
     }
   }
 
+  deactivateUser() {
+    console.log('Deactivate user called');
+    if (this.isEditUserProfile && this.user?.status === 'Active') {
+      console.debug('Deactivting user');
+      this.graphqlService.deactivate(this.user.id as string).subscribe(data => {
+        if (data) {
+          this.toasterService.success('Successfully deactivated user');
+          this.user.status = UserStatus.Deactivated;
+        } else  {
+          this.toasterService.error('Couldn\'t update user');
+        }
+      });
+    }
+  }
 }
