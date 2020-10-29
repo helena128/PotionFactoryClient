@@ -19,6 +19,9 @@
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{getIngredients(item.ingredients)}}</td>
+        <td>
+          <button class="btn btn-warning" (click)="viewRecipe(item.id)">View</button>
+        </td>
       </tr>
       </tbody>
     </table>
