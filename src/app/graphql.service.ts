@@ -335,8 +335,8 @@ export class GraphqlService {
     });
   }
 
-  getIngredientRequests(): Observable<api.Query['allIngredients']> {
-    return this.watchQuery('allIngredients', {
+  getIngredientRequests(): Observable<api.Query['allRequests']> {
+    return this.watchQuery('allRequests', {
       query: gql`
         {
           allRequests {
@@ -368,6 +368,17 @@ export class GraphqlService {
         }
       `,
       variables: {productTransferId: productTransferId}
+    });
+  }
+
+  receiveIngredients(requestId: number): Observable<api.Mutation['receiveIngredients']> {
+    return this.mutate('receiveIngredients', {
+      mutation: gql`
+        mutation ReceiveIngredients($requestId: Int!) {
+          receiveIngredients(requestId: $requestId)
+        }
+      `,
+      variables: {requestId: requestId}
     });
   }
 }
