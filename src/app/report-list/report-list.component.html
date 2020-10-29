@@ -5,7 +5,7 @@
       <button class="btn btn-info" [routerLink]="['/report']">New transfer report</button>
     </div>
   </div>
-  <div>
+  <div *ngIf="transferList">
     <mat-accordion *ngFor="let item of transferList">
       <mat-expansion-panel style="margin-top: 20px">
         <mat-expansion-panel-header>
@@ -13,22 +13,28 @@
             <div class="lead">ID: {{item.id}}</div>
           </mat-panel-title>
           <mat-panel-description>
-            <div class="text-muted">Potion1, Potion2</div>
+            <div class="text-muted">{{getProducts(item?.products)}}</div>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div style="margin-top: 20px;">
           <ul class="list-group">
-            <li class="list-group-item active">Requested ingredients</li>
-            <li class="list-group-item">Potion1: 2</li>
-            <li class="list-group-item">Potion2: 3</li>
+            <li class="list-group-item active">Transferable items</li>
+            <div *ngFor="let productInfo of getProductsAndCount(item?.products)">
+              <li class="list-group-item">{{productInfo.name}}: {{productInfo.val}}</li>
+            </div>
           </ul>
           <div style="margin-top: 20px">
             Status:
-            <mark>{{item.status}}</mark>
+            <mark>{{item.status?.toUpperCase()}}</mark>
           </div>
-          <div *ngIf="item.status === 'In transfer'" style="margin-top: 20px">
+          <div *ngIf="item.status === 'Transfer' && !isWarehouseManager()" style="margin-top: 20px">
             <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
               <button class="btn btn-success">Arrived at warehouse</button>
+            </span>
+          </div>
+          <div *ngIf="item.status === 'Produced'" style="margin-top: 20px">
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
+              <button class="btn btn-success" (click)="transfer(item)">Transfer</button>
             </span>
           </div>
         </div>

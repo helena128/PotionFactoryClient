@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IngredientRequestItem} from "../model/ingredient-request-item";
-import {UserRole} from "../api-types";
+import {IngredientRequest, UserRole} from "../api-types";
 import {GraphqlService} from "../graphql.service";
 
 @Component({
@@ -10,25 +10,14 @@ import {GraphqlService} from "../graphql.service";
 })
 export class IngredientsListComponentComponent implements OnInit {
 
-  ingredientRequestList: IngredientRequestItem[];
+  ingredientRequestList: any[];
 
   userRole = UserRole.WorkshopManager;
 
   constructor(private graphqlService: GraphqlService) { }
 
   ngOnInit(): void {
-    this.ingredientRequestList = [
-      {
-        id: '2',
-        status: 'Sent to workshop',
-        ingredientNames: ['ingredient1', 'ingredient1', 'ingredient2']
-      },
-      {
-        id: '1',
-        status: 'SENT_TO_WORKSHOP',
-        ingredientNames: ['ingredient1', 'ingredient1', 'ingredient2']
-      }
-    ];
+    this.graphqlService.getIngredientRequests().subscribe(data => this.ingredientRequestList = data);
   }
 
   public isWorkshopOperator(): boolean {

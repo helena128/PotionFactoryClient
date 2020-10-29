@@ -334,4 +334,40 @@ export class GraphqlService {
       variables: {userId: userId}
     });
   }
+
+  getIngredientRequests(): Observable<api.Query['allIngredients']> {
+    return this.watchQuery('allIngredients', {
+      query: gql`
+        {
+          allRequests {
+            id status ingredients { name }
+          }
+        }
+      `,
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  getTransferReportList(): Observable<api.Query['allReports']> {
+    return this.watchQuery('allReports', {
+      query: gql`{
+        allReports {
+          id status products { name }
+        }
+      }
+      `,
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  transferProducts(productTransferId: number): Observable<api.Mutation['transferProducts']> {
+    return this.mutate('transferProducts',{
+      mutation: gql`
+        mutation TransferProducts($productTransferId: Int!) {
+          transferProducts(productTransferId: $productTransferId)
+        }
+      `,
+      variables: {productTransferId: productTransferId}
+    });
+  }
 }

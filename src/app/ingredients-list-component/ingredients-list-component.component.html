@@ -5,7 +5,7 @@
       <button class="btn btn-info" [routerLink]="['/ingredients/request']">Create Ingredient Request</button>
     </div>
   </div>
-  <div>
+  <div *ngIf="ingredientRequestList">
     <mat-accordion *ngFor="let item of ingredientRequestList">
       <mat-expansion-panel style="margin-top: 20px">
         <mat-expansion-panel-header>
