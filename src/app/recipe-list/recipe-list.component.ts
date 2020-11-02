@@ -21,7 +21,8 @@ export class RecipeListComponent implements OnInit {
   }
 
   getIngredients(ingredientList: Ingredient[]): string {
-    return ingredientList ? ingredientList.map(ingr => ingr.name).slice(0, 2).join(', ') : '';
+    return ingredientList ? ingredientList.map(ingr => ingr.name)
+      .filter((item, i, ar) => ar.indexOf(item) === i).slice(0, 2).join(', ') : '';
   }
 
   canCreateRecipe(): boolean {

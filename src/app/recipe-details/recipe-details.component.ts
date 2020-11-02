@@ -20,7 +20,8 @@ export class RecipeDetailsComponent implements OnInit {
       id: data.id,
       name: data.name,
       description: data.description,
-      tags: data.ingredients.map(ingredient => ingredient.name) // TODO: make unique
+      tags: data.ingredients.map(ingredient => ingredient.name)
+        .filter((item, i, ar) => ar.indexOf(item) === i)
     });
   }
 

@@ -54,7 +54,8 @@ export class RecipeFormComponent implements OnInit {
   }
 
   createRecipe(): void {
-    const ingredientIds = this.ingredients.filter(ingr => this.isIngredientChosen(ingr?.name)).map(ingr => ingr.id);
+    const ingredientIds = this.ingredients.filter(ingr => this.isIngredientChosen(ingr?.name)).map(ingr => ingr.id)
+      .filter((item, i, ar) => ar.indexOf(item) === i);
     if (this.isRequestValid(ingredientIds)) {
       const recipeArg = {
         name: this.recipeName,
