@@ -16,7 +16,8 @@ export class MainNavbarComponent implements OnInit {
   constructor(
     private api: GraphqlService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     let role = localStorage.getItem('userRole')
@@ -34,21 +35,20 @@ export class MainNavbarComponent implements OnInit {
     this.api.logout()
       .subscribe(v => {
         // if (v) {
-          localStorage.removeItem('userRole')
-          this.router.navigate(['login'])
+        localStorage.removeItem('userRole')
+        this.router.navigate(['login'])
         // }
-  })
+      })
   }
 
   private initUserRoles(): void {
     this.headers = new Array<Header>();
-    this.headers.push({
-      name: "Home",
-      link: "home"
-    });
     switch (this.userRole) {
       case UserRole.Client:
         this.headers.push(
+          {
+            name: "Home", link: 'products'
+          },
           {
             name: "Products",
             link: "products"
@@ -61,12 +61,19 @@ export class MainNavbarComponent implements OnInit {
       case UserRole.Admin:
         this.headers.push(
           {
+            name: 'Home', link: 'users'
+          },
+          {
             name: "Users",
             link: "users"
           });
         break;
       case UserRole.Fairy:
         this.headers.push(
+          {
+            name: 'Home',
+            link: 'books'
+          },
           {
             name: "Literature",
             link: "books"
@@ -77,10 +84,15 @@ export class MainNavbarComponent implements OnInit {
           });
         break;
       case UserRole.WarehouseManager:
-        this.headers.push({
-          name: "Ingredients Request",
-          link: "ingredients"
-        },
+        this.headers.push(
+          {
+            name: 'Home',
+            link: 'ingredients'
+          },
+          {
+            name: "Ingredients Request",
+            link: "ingredients"
+          },
           {
             name: "Product Transfer",
             link: "transfer"
@@ -88,6 +100,9 @@ export class MainNavbarComponent implements OnInit {
         break;
       case UserRole.WorkshopManager:
         this.headers.push(
+          {
+            name: 'Home', link: 'ingredients'
+          },
           {
             name: 'Ingredient request', link: 'ingredients'
           },
