@@ -24,15 +24,11 @@ export class EditProfileComponent implements OnInit {
               private fb: FormBuilder,
               private router: Router,
               private graphqlService: GraphqlService,
-              private toasterService: ToastrService) { }
+              private toasterService: ToastrService) {
+  }
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole') as UserRole;
-    this.userRoleGroup = this.fb.group({
-      userRoleControl: [ UserRole.WarehouseManager ]
-    });
-    this.userRoleGroup.valueChanges.subscribe(x => console.log(x));
-
     this.isEditCurrentProfile = (this.router.url === '/settings');
     this.isRegister = this.router.url === '/register';
     this.isCreateProfile = (this.route.snapshot.paramMap.get('id') === 'new' && this.userRole === UserRole.Admin);
@@ -43,12 +39,23 @@ export class EditProfileComponent implements OnInit {
     if (this.isEditCurrentProfile) {
       this.graphqlService.currentUser().subscribe(data => this.user = data);
     } else if (this.isRegister || this.isCreateProfile) {
+      this.userRoleGroup = this.fb.group({
+        userRoleControl: [UserRole.WarehouseManager]
+      });
       this.user = {name: '', password: '', address: '', phone: '', id: ''};
     } else if (this.isEditUserProfile) {
       const userId = this.route.snapshot.paramMap.get('id');
       console.log('Retrieving data for user: ', userId);
-      this.graphqlService.userById(userId).subscribe(data => this.user = data);
+      this.graphqlService.userById(userId).subscribe(data => {
+        this.user = data;
+        console.debug('User role: ', this.user.role);
+        this.userRoleGroup = this.fb.group({
+          userRoleControl: [this.user.role]
+        });
+      });
     }
+    //this.userRoleGroup.valueChanges.subscribe(x => console.log(x));
+
   }
 
   handleUserRoleChange(event: any) {
@@ -117,7 +124,8 @@ export class EditProfileComponent implements OnInit {
         name: this.user.name,
         phone: this.user.phone,
         address: this.user.address,
-        role: this.userRoleGroup.value.userRoleControl as UserRole
+        role: this.userRoleGroup.value.userRoleControl as UserRole,
+        password: ''
       };
       this.graphqlService.updateUser(updatedUser).subscribe(data => this.toasterService.success('User with email ' + (data as User)?.id + ' was updated'));
     }
@@ -131,7 +139,7 @@ export class EditProfileComponent implements OnInit {
         if (data) {
           this.toasterService.success('Successfully deactivated user');
           this.user.status = UserStatus.Deactivated;
-        } else  {
+        } else {
           this.toasterService.error('Couldn\'t update user');
         }
       });

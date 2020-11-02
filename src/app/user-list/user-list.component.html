@@ -21,7 +21,7 @@
         <td>
           <div style="display: flex; justify-content: space-between">
             <div>{{profile.role}}</div>
-            <div>
+            <div *ngIf="profile.status !== 'Deactivated'">
               <button class="btn btn-warning" [routerLink]="['/users', profile.id]">Update info</button>
             </div>
           </div>

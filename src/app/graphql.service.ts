@@ -290,7 +290,7 @@ export class GraphqlService {
       query: gql`
         {
           allUsers {
-            id name role
+            id name role status
           }
         }
       `,

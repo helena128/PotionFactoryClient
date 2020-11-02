@@ -21,7 +21,7 @@
       <input type="text" class="form-control" placeholder="Address" [(ngModel)]="user.address"
       [disabled]="!isCreateProfile && !isEditCurrentProfile && !isRegister && !isEditUserProfile">
     </div>
-    <div style="margin-top: 20px" *ngIf="isEditUserProfile">
+    <div style="margin-top: 20px" *ngIf="isEditUserProfile && userRoleGroup">
       <form [formGroup]="userRoleGroup">
         <select formControlName="userRoleControl" class="custom-select" (ngModelChange)="handleUserRoleChange($event)">
           <option [value]="role" *ngFor="let role of userRoles">{{role}}</option>
