@@ -60,7 +60,8 @@ export class IngredientsListComponentComponent implements OnInit {
   }
 
   startTransfer(item: any) {
-    this.graphqlService.transferProducts(item.id).subscribe(data => {
+    console.debug('Request number: ', item.id);
+    this.graphqlService.transferIngredients(item.id).subscribe(data => {
       if (data) {
         this.toasterService.success('Successfully started transfer');
         item.status = 'Transfer';

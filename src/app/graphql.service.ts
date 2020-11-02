@@ -405,4 +405,15 @@ export class GraphqlService {
       variables: {productTransferId: productTransferId}
     });
   }
+
+  transferIngredients(requestId: number): Observable<api.Mutation['transferIngredients']> {
+    return this.mutate('transferIngredients', {
+      mutation: gql`
+        mutation TransferIngredients($requestId: Int!) {
+          transferIngredients(requestId: $requestId)
+        }
+      `,
+      variables: {requestId: requestId}
+    });
+  }
 }
