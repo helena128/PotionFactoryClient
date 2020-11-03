@@ -104,13 +104,13 @@ export type MutationLoginArgs = {
 
 /** Schema Mutations */
 export type MutationCreateUserArgs = {
-  user: UserEdit;
+  user: UserCreate;
 };
 
 
 /** Schema Mutations */
 export type MutationUpdateUserArgs = {
-  user: UserEdit;
+  user: UserChange;
 };
 
 
@@ -325,10 +325,12 @@ export type UserChange = {
   name?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  role?: Maybe<UserRole>;
 };
 
 /** User Edit Argument */
-export type UserEdit = {
+export type UserCreate = {
   id: Scalars['String'];
   password: Scalars['String'];
   name: Scalars['String'];

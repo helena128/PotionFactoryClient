@@ -301,7 +301,7 @@ export class GraphqlService {
   createUser(user: any): Observable<api.Mutation['createUser']> {
     return  this.mutate('createUser', {
       mutation: gql`
-          mutation CreateUser($user: userEdit!) {
+          mutation CreateUser($user: userCreate!) {
           createUser(user: $user) {
             id
           }
@@ -314,7 +314,7 @@ export class GraphqlService {
   updateUser(user: any): Observable<api.Mutation['updateUser']> {
     return this.mutate('updateUser', {
       mutation: gql`
-      mutation UpdateUser($user: userEdit!) {
+      mutation UpdateUser($user: UserChange!) {
         updateUser(user: $user) {
           id
         }
