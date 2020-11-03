@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../api-types";
+import {User, UserStatus} from "../api-types";
 import {GraphqlService} from "../graphql.service";
 
 @Component({
@@ -15,7 +15,10 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.graphQlService.getUsers().subscribe(data => this.userList = data);
+    this.graphQlService
+      .getUsers()
+      .subscribe(data =>
+        this.userList = data.filter(u => u.status != UserStatus.Deactivated));
   }
 
 }
