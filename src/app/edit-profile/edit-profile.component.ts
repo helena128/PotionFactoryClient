@@ -105,7 +105,7 @@ export class EditProfileComponent implements OnInit {
         address: this.user.address
       };
       console.debug(newUser);
-      this.graphqlService.register(newUser).subscribe(data => this.toasterService.success('Registered new user ', (data as User)?.id));
+      this.graphqlService.register(newUser).subscribe(data => this.toasterService.success(`Registered new user ${(data as User)?.id}`));
     } else if (this.isCreateProfile) {
       const newUser = {
         id: this.user.id,
@@ -116,7 +116,7 @@ export class EditProfileComponent implements OnInit {
         role: this.userRoleGroup.value.userRoleControl as UserRole
       };
       console.debug(newUser.role);
-      this.graphqlService.createUser(newUser).subscribe(data => this.toasterService.success('User was created, email: ', (data as User)?.id));
+      this.graphqlService.createUser(newUser).subscribe(data => this.toasterService.success(`User was created, email: ${(data as User)?.id}`));
     } else if (this.isEditUserProfile) {
       console.debug('Updating user with id: ', this.user.id);
       const updatedUser = {
@@ -127,7 +127,7 @@ export class EditProfileComponent implements OnInit {
         role: this.userRoleGroup.value.userRoleControl as UserRole,
         password: ''
       };
-      this.graphqlService.updateUser(updatedUser).subscribe(data => this.toasterService.success('User with email ' + (data as User)?.id + ' was updated'));
+      this.graphqlService.updateUser(updatedUser).subscribe(data => this.toasterService.success(`User with email ${(data as User)?.id} was updated`));
     }
   }
 
