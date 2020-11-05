@@ -89,7 +89,8 @@ export class EditProfileComponent implements OnInit {
     if (this.isEditCurrentProfile) {
       const updatedUser = {
         address: this.user.address,
-        phone: this.user.phone
+        phone: this.user.phone,
+        id: this.user.id
       };
       if (this.user.password && this.user.password?.length > 0) {
         updatedUser['password'] = this.user.password;
