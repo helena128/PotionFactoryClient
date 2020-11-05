@@ -145,4 +145,8 @@ export class EditProfileComponent implements OnInit {
       });
     }
   }
+
+  isDeactivated(): boolean {
+    return this.user.status === UserStatus.Deactivated;
+  }
 }
