@@ -1,7 +1,7 @@
 <div class="container">
   <div style="display: flex; justify-content: space-between">
     <div style="font-size: 32px; margin: 30px 0">Transfer reports</div>
-    <div style="font-size: 32px; margin: 30px 0" *ngIf="isWarehouseManager()">
+    <div style="font-size: 32px; margin: 30px 0" *ngIf="isWorkshopManager()">
       <button class="btn btn-info" [routerLink]="['/report']">New transfer report</button>
     </div>
   </div>
@@ -30,14 +30,14 @@
             Status:
             <mark>{{item.status?.toUpperCase()}}</mark>
           </div>
-          <div *ngIf="item.status === 'Transfer' && !isWarehouseManager()" style="margin-top: 20px">
-            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
-              <button class="btn btn-success" (click)="acknowledgeArrived(item)">Arrived at warehouse</button>
-            </span>
-          </div>
-          <div *ngIf="item.status === 'Produced'" style="margin-top: 20px">
+          <div *ngIf="item.status === 'Produced' && isWorkshopManager()" style="margin-top: 20px">
             <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
               <button class="btn btn-success" (click)="transfer(item)">Transfer</button>
+            </span>
+          </div>
+          <div *ngIf="item.status === 'Transfer' && isWarehouseManager()" style="margin-top: 20px">
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change status">
+              <button class="btn btn-success" (click)="acknowledgeArrived(item)">Arrived at warehouse</button>
             </span>
           </div>
         </div>

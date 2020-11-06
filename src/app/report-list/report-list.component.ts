@@ -20,6 +20,10 @@ export class ReportListComponent implements OnInit {
   }
 
   isWarehouseManager(): boolean {
+    return localStorage.getItem('userRole') === UserRole.WarehouseManager;
+  }
+
+  isWorkshopManager(): boolean {
     return localStorage.getItem('userRole') === UserRole.WorkshopManager;
   }
 
