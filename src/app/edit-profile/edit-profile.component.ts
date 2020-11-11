@@ -86,6 +86,10 @@ export class EditProfileComponent implements OnInit {
   }
 
   public saveChanges(): void {
+    if (!this.isRequestValid()) {
+      this.toasterService.error('Check required fields are filled out!');
+      return;
+    }
     if (this.isEditCurrentProfile) {
       const updatedUser = {
         address: this.user.address,
@@ -149,5 +153,19 @@ export class EditProfileComponent implements OnInit {
 
   isDeactivated(): boolean {
     return this.user.status === UserStatus.Deactivated;
+  }
+
+  private isRequestValid(): boolean {
+    return this.isNonEmptyString(this.user.id) && this.isNonEmptyString(this.user.name) &&
+      this.isValidEmail(this.user.id);
+  }
+
+  private isNonEmptyString(str: string): boolean {
+    return str && str.length > 0;
+  }
+
+  private isValidEmail(id: string) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(id).toLowerCase());
   }
 }
