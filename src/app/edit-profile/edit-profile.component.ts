@@ -161,7 +161,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   private isNonEmptyString(str: string): boolean {
-    return str && str.length > 0;
+    return str && str.length > 0 && !/^\s+$/.test(str);
   }
 
   private isValidEmail(id: string) {
